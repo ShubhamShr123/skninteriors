@@ -312,6 +312,11 @@ header.scrolled-nav{
     .contact-details{
         flex: 1;
         width: 100%;
+        order: 2;
+    }
+
+    .contact-form{
+        order: 1;
     }
 }
 
