@@ -1,0 +1,12 @@
+nav ul a:hover{
+    color: #0056b3;
+    transition: color 0.2s ease-in;
+}
+
+.btns button:hover{
+    background-color: rgba(210, 105, 30, 0.5);
+    transition: background-color 0.2s ease-in-out;
+}
+
+nav ul a {
+}
