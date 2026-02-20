@@ -18,6 +18,17 @@ main{
     padding-top: 55px;
 }
 
+.contact-heading{
+    padding: 40px 6vw 20px;
+}
+
+.contact-heading h1{
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: black;
+    text-align: center;
+}
+
 .contact-layout{
     display: flex;
     gap: 30px;
@@ -292,6 +303,19 @@ header.scrolled-nav{
         padding-top: 55px;
     }
 
+    main{
+        padding-top: 55px;
+    }
+
+    .contact-heading{
+        padding: 24px 12px;
+    }
+
+    .contact-heading h1{
+        font-size: 28px;
+        text-align: center;
+    }
+
     .contact-layout{
         flex-direction: column;
         padding: 24px 12px 40px;
@@ -312,15 +336,20 @@ header.scrolled-nav{
     .contact-details{
         flex: 1;
         width: 100%;
-        order: 2;
     }
-
-    .contact-form{
-        order: 1;
-    }
+}
 }
 
 @media (max-width: 600px) {
+    .contact-heading{
+        padding: 20px 10px;
+    }
+
+    .contact-heading h1{
+        font-size: 24px;
+        text-align: center;
+    }
+
     .contact-layout{
         flex-direction: column;
         padding: 20px 10px 40px;
