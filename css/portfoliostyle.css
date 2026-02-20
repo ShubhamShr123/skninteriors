@@ -65,6 +65,15 @@ header.beige-nav{
     height: auto;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .navbar ul{
     display: flex;
     align-items: center;

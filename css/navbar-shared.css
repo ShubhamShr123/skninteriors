@@ -4,6 +4,15 @@ body {
     overflow-x: hidden;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 header,
 header.scrolled-nav,
 header.beige-nav {
