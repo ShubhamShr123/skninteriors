@@ -322,6 +322,8 @@ main{
     z-index: 10;
     width: 100%;
     padding: 20px;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s ease;
 }
 
 .portfolio-card-overlay h3 {
@@ -331,6 +333,10 @@ main{
     color: white;
     margin: 0;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.portfolio-card:hover .portfolio-card-overlay {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .portfolio-card:hover .portfolio-card-image img {
@@ -1062,18 +1068,27 @@ footer{
         height: 250px;
     }
 
+    /* Mobile portfolio cards - always show project names */
+    .portfolio-card-overlay {
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .portfolio-card-overlay h3 {
+        font-size: 22px;
+    }
+
     /* Mobile project cards - grayscale with visible project name */
     .project-card {
         display: block;
     }
 
     .project-image-container img {
-        filter: grayscale(100%);
+        filter: grayscale(0%);
     }
 
     .project-card:hover .project-image-container img {
         transform: scale(1.08);
-        filter: grayscale(100%);
+        filter: grayscale(0%);
     }
 
     .project-overlay {
