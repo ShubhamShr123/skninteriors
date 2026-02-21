@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/hover/style.css">
     <link rel="shortcut icon" href="imgs/SKN Interior Solutions_NEW.jpg" type="image/x-icon">
     <script src="js/navbar.js"></script>
+    <script src="js/logos-scroll.js" defer></script>
     <title>Home</title>
 </head>
 
@@ -125,33 +126,7 @@
         </section>
         <section class="clients-logos-belt">
             <div class="logos-container">
-                <div class="logos-track">
-                    <div class="logo-item"><img src="logos of clientale/AIPL.png" alt="AIPL"></div>
-                    <div class="logo-item"><img src="logos of clientale/big cash.jpg" alt="Big Cash"></div>
-                    <div class="logo-item"><img src="logos of clientale/clark.jpg" alt="Clark"></div>
-                    <div class="logo-item"><img src="logos of clientale/dlf.svg" alt="DLF"></div>
-                    <div class="logo-item"><img src="logos of clientale/hp.png" alt="HP"></div>
-                    <div class="logo-item"><img src="logos of clientale/isharya.png" alt="Isharya"></div>
-                    <div class="logo-item"><img src="logos of clientale/itc maurya.png" alt="ITC Maurya"></div>
-                    <div class="logo-item"><img src="logos of clientale/m3m.webp" alt="M3M"></div>
-                    <div class="logo-item"><img src="logos of clientale/panasonic.jpg" alt="Panasonic"></div>
-                    <div class="logo-item"><img src="logos of clientale/the leela.png" alt="The Leela"></div>
-                    <div class="logo-item"><img src="logos of clientale/toto.webp" alt="Toto"></div>
-                    <div class="logo-item"><img src="logos of clientale/trehan iris.png" alt="Trehan Iris"></div>
-                    <!-- Repeat for seamless loop -->
-                    <div class="logo-item"><img src="logos of clientale/AIPL.png" alt="AIPL"></div>
-                    <div class="logo-item"><img src="logos of clientale/big cash.jpg" alt="Big Cash"></div>
-                    <div class="logo-item"><img src="logos of clientale/clark.jpg" alt="Clark"></div>
-                    <div class="logo-item"><img src="logos of clientale/dlf.svg" alt="DLF"></div>
-                    <div class="logo-item"><img src="logos of clientale/hp.png" alt="HP"></div>
-                    <div class="logo-item"><img src="logos of clientale/isharya.png" alt="Isharya"></div>
-                    <div class="logo-item"><img src="logos of clientale/itc maurya.png" alt="ITC Maurya"></div>
-                    <div class="logo-item"><img src="logos of clientale/m3m.webp" alt="M3M"></div>
-                    <div class="logo-item"><img src="logos of clientale/panasonic.jpg" alt="Panasonic"></div>
-                    <div class="logo-item"><img src="logos of clientale/the leela.png" alt="The Leela"></div>
-                    <div class="logo-item"><img src="logos of clientale/toto.webp" alt="Toto"></div>
-                    <div class="logo-item"><img src="logos of clientale/trehan iris.png" alt="Trehan Iris"></div>
-                    <!-- Third repeat for truly seamless infinite loop -->
+                <div class="logos-track" id="logos-track">
                     <div class="logo-item"><img src="logos of clientale/AIPL.png" alt="AIPL"></div>
                     <div class="logo-item"><img src="logos of clientale/big cash.jpg" alt="Big Cash"></div>
                     <div class="logo-item"><img src="logos of clientale/clark.jpg" alt="Clark"></div>
@@ -167,10 +142,88 @@
                 </div>
             </div>
         </section>
+        <section class="recent-projects-heading">
+            <h2>Our Recent Projects</h2>
+        </section>
+        <section class="recent-projects-belt">
+            <div class="projects-container">
+                <div class="projects-track" id="projects-track">
+                    <a href="project-isharya.html" class="project-item">
+                        <img src="imgs portfolio/Isharya/New.png" alt="Isharya">
+                        <div class="project-item-overlay">
+                            <h3>ISHARYA</h3>
+                        </div>
+                    </a>
+                    <a href="project-toto.html" class="project-item">
+                        <img src="imgs portfolio/Toto/New toto.png" alt="Toto">
+                        <div class="project-item-overlay">
+                            <h3>TOTO</h3>
+                        </div>
+                    </a>
+                    <a href="project-clark.html" class="project-item">
+                        <img src="imgs portfolio/Clark/Screenshot 2022-10-13 135831.png" alt="The Clark Hotels">
+                        <div class="project-item-overlay">
+                            <h3>THE CLARK HOTELS</h3>
+                        </div>
+                    </a>
+                    <a href="project-micromax.html" class="project-item">
+                        <img src="imgs portfolio/Micromax/Screenshot 2021-12-20 203113.png" alt="Micromax">
+                        <div class="project-item-overlay">
+                            <h3>MICROMAX</h3>
+                        </div>
+                    </a>
+                    <a href="project-panasonic.html" class="project-item">
+                        <img src="imgs portfolio/panasonic/Screenshot 2021-12-20 124226.png" alt="Panasonic">
+                        <div class="project-item-overlay">
+                            <h3>PANASONIC</h3>
+                        </div>
+                    </a>
+                    <a href="project-golden-tobie.html" class="project-item">
+                        <img src="imgs portfolio/Golden tobie/Screenshot 2021-12-25 094329.png" alt="Golden Tobie">
+                        <div class="project-item-overlay">
+                            <h3>GOLDEN TOBIE</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
         <div class="lastbtn">
             <button class="last"><a href="portfolio.html">PORTFOLIO</a></button>
         </div>
     </main>
+
+    <section class="footer-info">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p>Email: info@skninteriors.com</p>
+                <p>Phone: +91 XXX XXX XXXX</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Recent Projects</h3>
+                <ul>
+                    <li><a href="project-isharya.html">Isharya</a></li>
+                    <li><a href="project-panasonic.html">Panasonic</a></li>
+                    <li><a href="project-toto.html">Toto</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-map">
+                <h3>Our Location</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.8749666671165!2d77.05333267470363!3d28.453185275763133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1858ac54f913%3A0xdb199da20ae5ac0a!2s150%2C%20near%20ryan%20school%2C%20Urban%20Estate%2C%20Sector%2040%2C%20Gurugram%2C%20Haryana%20122003!5e0!3m2!1sen!2sin!4v1771662440143!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
         COPYYRIGHT&COPY; skninteriors.com 2024
@@ -178,6 +231,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Logos scrolling
             const logosTrack = document.querySelector('.logos-track');
             const logosContainer = document.querySelector('.logos-container');
             
@@ -186,39 +240,100 @@
             let scrollLeft = 0;
             let animationPaused = false;
 
+            // Duplicate logos for infinite scroll
+            if (logosTrack) {
+                const logosClone = logosTrack.innerHTML;
+                logosTrack.innerHTML += logosClone + logosClone;
+            }
+
             // Touch events for mobile swipe
-            logosContainer.addEventListener('touchstart', (e) => {
-                isDown = true;
-                startX = e.touches[0].clientX;
-                scrollLeft = logosContainer.scrollLeft;
-                pauseAnimation();
-            }, { passive: false });
+            if (logosContainer) {
+                logosContainer.addEventListener('touchstart', (e) => {
+                    isDown = true;
+                    startX = e.touches[0].clientX;
+                    scrollLeft = logosContainer.scrollLeft;
+                    pauseAnimation();
+                }, { passive: false });
 
-            logosContainer.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                
-                const x = e.touches[0].clientX;
-                const walk = (startX - x);
-                logosContainer.scrollLeft = scrollLeft + walk;
-            }, { passive: false });
+                logosContainer.addEventListener('touchmove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    
+                    const x = e.touches[0].clientX;
+                    const walk = (startX - x);
+                    logosContainer.scrollLeft = scrollLeft + walk;
+                }, { passive: false });
 
-            logosContainer.addEventListener('touchend', () => {
-                isDown = false;
-                resumeAnimation();
-            });
+                logosContainer.addEventListener('touchend', () => {
+                    isDown = false;
+                    resumeAnimation();
+                });
+            }
 
             function pauseAnimation() {
-                if (!animationPaused) {
+                if (!animationPaused && logosTrack) {
                     logosTrack.style.animationPlayState = 'paused';
                     animationPaused = true;
                 }
             }
 
             function resumeAnimation() {
-                if (animationPaused) {
+                if (animationPaused && logosTrack) {
                     logosTrack.style.animationPlayState = 'running';
                     animationPaused = false;
+                }
+            }
+
+            // Projects scrolling
+            const projectsTrack = document.querySelector('.projects-track');
+            const projectsContainer = document.querySelector('.projects-container');
+            
+            let isDownProjects = false;
+            let startXProjects = 0;
+            let scrollLeftProjects = 0;
+            let animationPausedProjects = false;
+
+            // Duplicate projects for infinite scroll
+            if (projectsTrack) {
+                const projectsClone = projectsTrack.innerHTML;
+                projectsTrack.innerHTML += projectsClone + projectsClone;
+            }
+
+            // Touch events for mobile swipe
+            if (projectsContainer) {
+                projectsContainer.addEventListener('touchstart', (e) => {
+                    isDownProjects = true;
+                    startXProjects = e.touches[0].clientX;
+                    scrollLeftProjects = projectsContainer.scrollLeft;
+                    pauseProjectsAnimation();
+                }, { passive: false });
+
+                projectsContainer.addEventListener('touchmove', (e) => {
+                    if (!isDownProjects) return;
+                    e.preventDefault();
+                    
+                    const x = e.touches[0].clientX;
+                    const walk = (startXProjects - x);
+                    projectsContainer.scrollLeft = scrollLeftProjects + walk;
+                }, { passive: false });
+
+                projectsContainer.addEventListener('touchend', () => {
+                    isDownProjects = false;
+                    resumeProjectsAnimation();
+                });
+            }
+
+            function pauseProjectsAnimation() {
+                if (!animationPausedProjects && projectsTrack) {
+                    projectsTrack.style.animationPlayState = 'paused';
+                    animationPausedProjects = true;
+                }
+            }
+
+            function resumeProjectsAnimation() {
+                if (animationPausedProjects && projectsTrack) {
+                    projectsTrack.style.animationPlayState = 'running';
+                    animationPausedProjects = false;
                 }
             }
         });
