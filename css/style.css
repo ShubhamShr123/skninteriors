@@ -108,6 +108,20 @@ header.scrolled-nav{
     font-size: large;
 }
 
+.navbar ul li a.get-in-touch {
+    background-color: #4A7C59 !important;
+    color: #ffffff !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+}
+
+.navbar ul li a.get-in-touch:hover {
+    background-color: #3a6048 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 8px rgba(74, 124, 89, 0.3) !important;
+}
+
 .navlist .dropdown {
     position: relative;
 }
