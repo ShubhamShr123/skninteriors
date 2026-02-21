@@ -10,19 +10,31 @@
     <script src="js/navbar.js"></script>
     <script src="js/logos-scroll.js" defer></script>
     <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "vkuys6kl1x");
     </script>
     <title>Home</title>
 </head>
 
 <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <img src="imgs/SKN Interior Solutions_NEW.jpg" alt="SKN Interior Solutions" class="splash-logo">
+            <h1 class="splash-brand-name">SKN INTERIOR SOLUTIONS</h1>
+            <p class="splash-tagline">Where Structural Precision Meets Architectural Artistry</p>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar background">
-            <a href="index.html" class="logo-link"><div class="logo"><img src="imgs/SKN Interior Solutions_NEW.jpg" alt="logo"></div></a>
+            <a href="index.html" class="logo-link">
+                <div class="logo"><img src="imgs/SKN Interior Solutions_NEW.jpg" alt="logo"></div><span
+                    class="brand-name">SKN INTERIOR SOLUTIONS</span>
+            </a>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -40,13 +52,20 @@
 
     <main>
         <section class="background firstsection">
-            <div class="mainbox">
-                <div class="secondhalf">
-                    <img src="imgs/backgr for home.jpg" alt="skn logo" class="pdag-hero-image">
-                </div>
+            <div class="mainbox home-mainbox">
                 <div class="firsthalf">
-                    <p class="bigtext">SKN INTERIOR SOLUTIONS</p>
-                    <p class="smalltext">SKN Interior Solutions is a premier, full-service firm redefining luxury across Delhi/NCR. We are masters of both commercial and residential design with over 30+ years of experience in the industry, executing complex projects with uncompromising precision and artistic flair.</p>
+                    <img src="imgs/backgr for home.jpg" alt="skn logo" class="pdag-hero-image">
+                    <p class="bigtext">Where Structural Precision Meets Architectural Artistry</p>
+                    <p class="smalltext">With a 30-year legacy of managing high-stakes commercial developments, SKN
+                        Interior Solutions brings elite corporate discipline and technical rigor to the world of luxury
+                        residential design. From the first brick to the final light fixture, we don’t just decorate
+                        spaces—we engineer them.
+
+                        Our 360° Turnkey Ecosystem seamlessly integrates structural civil work and MEP excellence with
+                        bespoke finishes, allowing us to handle the complexity so you don't have to. Whether it is a
+                        corporate complex or the "soul" of a premium villa, our Pan-India expertise ensures a flawless
+                        design-to-delivery experience—no matter where your site is located.
+                    </p>
                     <div class="btns">
                         <button class="btn"><a href="about.html">Know More</a></button>
                         <button class="btn"><a href="portfolio.html">Portfolio</a></button>
@@ -57,19 +76,35 @@
         <section class="about-legacy">
             <div class="about-legacy-inner">
                 <div class="about-legacy-media">
-                    <img src="imgs/utl.jpg" alt="SKN Interior Solutions legacy">
+                    <img src="imgs/utl.jpg" alt="SKN Interior Solutions legacy" class="legacy-img-primary">
+                    <img src="imgs/big cash (17).jpg" alt="SKN Interior Solutions legacy" class="legacy-img-alternate">
                 </div>
                 <div class="about-legacy-content">
                     <h2>From Vision to Reality: The SKN Interior Solutions Legacy</h2>
                     <ul>
-                        <li>Founded in 2019, SKN Interior Solutions was established to bring a new level of professionalism and technical mastery to the interior design and construction industry. While the SKN name is modern, our foundation is built on over 30 years of elite industry experience under the leadership of our Managing Director.</li>
-                        <li>We have spent decades managing high-stakes, large-scale commercial projects, but we have translated that same level of corporate discipline and structural precision into the residential sector.</li>
-                        <li>Commercial Powerhouse. Residential Experts. We do not just decorate homes; we engineer them. We understand that a luxury residence requires the same technical rigor as a commercial complex and a commercial space needs the same aesthetic soul as a home. Whether it is a high-functioning corporate office or a bespoke premium villa, we bring a vast depth of knowledge to every square foot.</li>
-                        <li>Our Comprehensive 360 Degree Ecosystem. We are one of the few firms capable of handling a project from the first brick to the final light fixture. By offering an end-to-end Turnkey Solution, we eliminate the stress of managing multiple vendors.</li>
-                        <li>Structural and Civil Services: From foundational civil work to complex structural modifications.</li>
-                        <li>Complete Interior Design: Bespoke finishes that reflect your brand or your personal lifestyle.</li>
-                        <li>MEP and HVAC Excellence: Professional-grade Mechanical, Electrical, and Plumbing services, alongside specialized HVAC systems for climate-perfect environments.</li>
-                        <li>Design-to-Delivery: A seamless transition from blueprints to a fully functional, move-in-ready space.</li>
+                        <li>Founded in 2019, SKN Interior Solutions was established to bring a new level of
+                            professionalism and technical mastery to the interior design and construction industry.
+                            While the SKN name is modern, our foundation is built on over 30 years of elite industry
+                            experience under the leadership of our Managing Director.</li>
+                        <li>We have spent decades managing high-stakes, large-scale commercial projects, but we have
+                            translated that same level of corporate discipline and structural precision into the
+                            residential sector.</li>
+                        <li>Commercial Powerhouse. Residential Experts. We do not just decorate homes; we engineer them.
+                            We understand that a luxury residence requires the same technical rigor as a commercial
+                            complex and a commercial space needs the same aesthetic soul as a home. Whether it is a
+                            high-functioning corporate office or a bespoke premium villa, we bring a vast depth of
+                            knowledge to every square foot.</li>
+                        <li>Our Comprehensive 360 Degree Ecosystem. We are one of the few firms capable of handling a
+                            project from the first brick to the final light fixture. By offering an end-to-end Turnkey
+                            Solution, we eliminate the stress of managing multiple vendors.</li>
+                        <li>Structural and Civil Services: From foundational civil work to complex structural
+                            modifications.</li>
+                        <li>Complete Interior Design: Bespoke finishes that reflect your brand or your personal
+                            lifestyle.</li>
+                        <li>MEP and HVAC Excellence: Professional-grade Mechanical, Electrical, and Plumbing services,
+                            alongside specialized HVAC systems for climate-perfect environments.</li>
+                        <li>Design-to-Delivery: A seamless transition from blueprints to a fully functional,
+                            move-in-ready space.</li>
                     </ul>
                 </div>
             </div>
@@ -94,37 +129,44 @@
         </section>
         <section class="why-choose-us">
             <h2>Why Choose Us</h2>
-            <p>SKN has been in the business of satisfying its clients with its great work, again and again, we have received a positive feedback and appreciation from our clients.</p>
+            <p>SKN has been in the business of satisfying its clients with its great work, again and again, we have
+                received a positive feedback and appreciation from our clients.</p>
             <div class="why-choose-grid">
                 <div class="why-choose-item">
                     <img src="why chose us/experience1.jpg" alt="Experience">
                     <h3>Experience</h3>
-                    <p>We have delivered more than 25,00,000 square feet area of corporate office spaces to luxury residential spaces.</p>
+                    <p>We have delivered more than 25,00,000 square feet area of corporate office spaces to luxury
+                        residential spaces.</p>
                 </div>
                 <div class="why-choose-item">
                     <img src="why chose us/expert team.jpg" alt="Expert Team">
                     <h3>Expert Team</h3>
-                    <p>We have more than 50+ dedicated team members with extensive expertise and years of experience in the interior design industry.</p>
+                    <p>We have more than 50+ dedicated team members with extensive expertise and years of experience in
+                        the interior design industry.</p>
                 </div>
                 <div class="why-choose-item">
                     <img src="why chose us/focus2.jpg" alt="Focus on Details">
                     <h3>Precision & Focus</h3>
-                    <p>Our work approach is to maintain full focus on every detail, ensuring we consistently exceed client expectations with meticulous craftsmanship.</p>
+                    <p>Our work approach is to maintain full focus on every detail, ensuring we consistently exceed
+                        client expectations with meticulous craftsmanship.</p>
                 </div>
                 <div class="why-choose-item">
                     <img src="why chose us/luxury.jpg" alt="Luxury">
                     <h3>Luxury Excellence</h3>
-                    <p>We have extensive experience in delivering ultra-luxury spaces with premium finishes and bespoke designs that redefine elegance.</p>
+                    <p>We have extensive experience in delivering ultra-luxury spaces with premium finishes and bespoke
+                        designs that redefine elegance.</p>
                 </div>
                 <div class="why-choose-item">
                     <img src="why chose us/reliable.jpg" alt="Reliability">
                     <h3>Reliability</h3>
-                    <p>More than 80% of our clients return for repeat projects, reflecting our commitment to quality, reliability, and exceptional service delivery.</p>
+                    <p>More than 80% of our clients return for repeat projects, reflecting our commitment to quality,
+                        reliability, and exceptional service delivery.</p>
                 </div>
                 <div class="why-choose-item">
                     <img src="why chose us/trust.jpg" alt="Trust">
                     <h3>Trustworthy Partner</h3>
-                    <p>Our high client retention rate and swift project execution without complications make us the trusted partner for your design and renovation needs.</p>
+                    <p>Our high client retention rate and swift project execution without complications make us the
+                        trusted partner for your design and renovation needs.</p>
                 </div>
             </div>
         </section>
@@ -155,40 +197,52 @@
         <section class="recent-projects-belt">
             <div class="projects-container">
                 <div class="projects-track" id="projects-track">
-                    <a href="project-isharya.html" class="project-item">
+                    <a href="projects/project-big-cash.html" class="project-item">
+                        <img src="imgs portfolio/BIG CASH/big cash (6).jpg" alt="Big Cash">
+                        <div class="project-item-overlay">
+                            <h3>BIG CASH</h3>
+                        </div>
+                    </a>
+                    <a href="projects/project-powertech.html" class="project-item">
+                        <img src="imgs portfolio/Powertech/powertech (1).png" alt="Powertech">
+                        <div class="project-item-overlay">
+                            <h3>POWERTECH</h3>
+                        </div>
+                    </a>
+                    <a href="projects/project-golden-tobie.html" class="project-item">
+                        <img src="imgs portfolio/Golden tobie/Screenshot 2021-12-25 094329.png" alt="Golden Tobie">
+                        <div class="project-item-overlay">
+                            <h3>GOLDEN TOBIE</h3>
+                        </div>
+                    </a>
+                    <a href="projects/project-pdag.html" class="project-item">
+                        <img src="imgs/pdag.jpg" alt="PDAG">
+                        <div class="project-item-overlay">
+                            <h3>PDAG</h3>
+                        </div>
+                    </a>
+                    <a href="projects/project-isharya.html" class="project-item">
                         <img src="imgs portfolio/Isharya/New.png" alt="Isharya">
                         <div class="project-item-overlay">
                             <h3>ISHARYA</h3>
                         </div>
                     </a>
-                    <a href="project-toto.html" class="project-item">
-                        <img src="imgs portfolio/Toto/New toto.png" alt="Toto">
-                        <div class="project-item-overlay">
-                            <h3>TOTO</h3>
-                        </div>
-                    </a>
-                    <a href="project-clark.html" class="project-item">
-                        <img src="imgs portfolio/Clark/Screenshot 2022-10-13 135831.png" alt="The Clark Hotels">
-                        <div class="project-item-overlay">
-                            <h3>THE CLARK HOTELS</h3>
-                        </div>
-                    </a>
-                    <a href="project-micromax.html" class="project-item">
-                        <img src="imgs portfolio/Micromax/Screenshot 2021-12-20 203113.png" alt="Micromax">
-                        <div class="project-item-overlay">
-                            <h3>MICROMAX</h3>
-                        </div>
-                    </a>
-                    <a href="project-panasonic.html" class="project-item">
+                    <a href="projects/project-panasonic.html" class="project-item">
                         <img src="imgs portfolio/panasonic/Screenshot 2021-12-20 124226.png" alt="Panasonic">
                         <div class="project-item-overlay">
                             <h3>PANASONIC</h3>
                         </div>
                     </a>
-                    <a href="project-golden-tobie.html" class="project-item">
-                        <img src="imgs portfolio/Golden tobie/Screenshot 2021-12-25 094329.png" alt="Golden Tobie">
+                    <a href="projects/project-toto.html" class="project-item">
+                        <img src="imgs portfolio/Toto/New toto.png" alt="Toto">
                         <div class="project-item-overlay">
-                            <h3>GOLDEN TOBIE</h3>
+                            <h3>TOTO</h3>
+                        </div>
+                    </a>
+                    <a href="projects/project-clark.html" class="project-item">
+                        <img src="imgs portfolio/Clark/Screenshot 2022-10-13 135831.png" alt="The Clark Hotels">
+                        <div class="project-item-overlay">
+                            <h3>THE CLARK HOTELS</h3>
                         </div>
                     </a>
                 </div>
@@ -226,7 +280,10 @@
             <div class="footer-column footer-map">
                 <h3>Our Location</h3>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.8749666671165!2d77.05333267470363!3d28.453185275763133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1858ac54f913%3A0xdb199da20ae5ac0a!2s150%2C%20near%20ryan%20school%2C%20Urban%20Estate%2C%20Sector%2040%2C%20Gurugram%2C%20Haryana%20122003!5e0!3m2!1sen!2sin!4v1771662440143!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.8749666671165!2d77.05333267470363!3d28.453185275763133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1858ac54f913%3A0xdb199da20ae5ac0a!2s150%2C%20near%20ryan%20school%2C%20Urban%20Estate%2C%20Sector%2040%2C%20Gurugram%2C%20Haryana%20122003!5e0!3m2!1sen!2sin!4v1771662440143!5m2!1sen!2sin"
+                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -237,11 +294,11 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Logos scrolling
             const logosTrack = document.querySelector('.logos-track');
             const logosContainer = document.querySelector('.logos-container');
-            
+
             let isDown = false;
             let startX = 0;
             let scrollLeft = 0;
@@ -265,7 +322,7 @@
                 logosContainer.addEventListener('touchmove', (e) => {
                     if (!isDown) return;
                     e.preventDefault();
-                    
+
                     const x = e.touches[0].clientX;
                     const walk = (startX - x);
                     logosContainer.scrollLeft = scrollLeft + walk;
@@ -294,7 +351,7 @@
             // Projects scrolling
             const projectsTrack = document.querySelector('.projects-track');
             const projectsContainer = document.querySelector('.projects-container');
-            
+
             let isDownProjects = false;
             let startXProjects = 0;
             let scrollLeftProjects = 0;
@@ -318,7 +375,7 @@
                 projectsContainer.addEventListener('touchmove', (e) => {
                     if (!isDownProjects) return;
                     e.preventDefault();
-                    
+
                     const x = e.touches[0].clientX;
                     const walk = (startXProjects - x);
                     projectsContainer.scrollLeft = scrollLeftProjects + walk;
@@ -343,6 +400,19 @@
                     animationPausedProjects = false;
                 }
             }
+        });
+
+        // Splash Screen Handler
+        window.addEventListener('load', function() {
+            const splashScreen = document.getElementById('splash-screen');
+            
+            setTimeout(function() {
+                splashScreen.classList.add('fade-out');
+                
+                setTimeout(function() {
+                    splashScreen.style.display = 'none';
+                }, 500); // Wait for fade out animation to complete
+            }, 3500); // Show splash for 3.5 seconds
         });
     </script>
 </body>

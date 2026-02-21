@@ -65,17 +65,35 @@ header.beige-nav{
 }
 
 .logo img{
-    max-width: 35%;
-    height: auto;
+    width: auto;
+    height: 44px;
+    max-width: none;
+    display: block;
 }
 
 .logo-link {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-left: 14px;
+    min-width: 0;
     height: 55px;
     text-decoration: none;
     cursor: pointer;
+}
+
+.brand-name {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(12px, 1.15vw, 18px);
+    font-weight: 700;
+    color: #333333;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
 }
 
 .navbar ul{
@@ -452,29 +470,21 @@ main{
 /* Category Heading Section */
 .category-heading-section {
     text-align: center;
-    padding: 60px 20px;
+    padding: 20px;
     overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 100%;
+    margin: 0;
 }
 
 .selected-category {
     font-size: 72px;
     font-weight: 700;
-    color: #042748;
+    color: #ffffff;
     letter-spacing: 3px;
     margin: 0;
-    display: inline-block;
+    display: block;
     white-space: nowrap;
-    animation: scrollBelt 4.5s linear infinite;
-    will-change: transform;
-}
-
-@keyframes scrollBelt {
-    0% {
-        transform: translateX(100vw);
-    }
-    100% {
-        transform: translateX(-100vw);
-    }
 }
 
 /* Project Grid Styles */
@@ -806,6 +816,23 @@ footer{
         display: flex;
     }
 
+    .logo-link {
+        gap: 8px;
+        padding-left: 10px;
+        max-width: calc(100% - 52px);
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .brand-name {
+        font-size: clamp(10px, 2.2vw, 14px);
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
     /* Hide navlist by default and make it slide from right */
     .navlist {
         position: fixed;
@@ -998,6 +1025,23 @@ footer{
 
     .hamburger {
         display: flex;
+    }
+
+    .logo-link {
+        gap: 8px;
+        padding-left: 10px;
+        max-width: calc(100% - 52px);
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .brand-name {
+        font-size: clamp(10px, 2.2vw, 14px);
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
     }
 
     .navlist {

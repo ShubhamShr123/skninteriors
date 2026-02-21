@@ -8,10 +8,63 @@ body {
 .logo-link {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-left: 14px;
+    min-width: 0;
     height: 55px;
     text-decoration: none;
     cursor: pointer;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+}
+
+.logo img {
+    width: auto;
+    height: 44px;
+    max-width: none;
+    display: block;
+}
+
+.brand-name {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(12px, 1.15vw, 18px);
+    font-weight: 700;
+    color: #333333;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
+}
+
+header {
+    width: 100%;
+    max-width: 100vw;
+    height: 55px;
+    background-color: #F5F2EF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F5F2EF;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 header,
@@ -36,7 +89,15 @@ header.beige-nav {
     box-sizing: border-box;
 }
 
+.navbar ul {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 16px;
+}
+
 .navbar ul li {
+    list-style: none;
     margin-right: 30px;
 }
 
@@ -75,9 +136,42 @@ header.beige-nav {
     color: #ffffff !important;
 }
 
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    margin-right: 20px;
+}
+
 .hamburger span {
+    width: 25px;
+    height: 3px;
     background-color: #333333;
     border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.rightnav {
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    padding-right: 20px;
 }
 
 @media only screen and (max-width:1110px) {
@@ -103,6 +197,33 @@ header.beige-nav {
     .navlist li {
         margin: 15px 0;
         text-align: center;
+    }
+
+    .navbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-link {
+        gap: 8px;
+        padding-left: 10px;
+        max-width: calc(100% - 52px);
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .brand-name {
+        font-size: clamp(10px, 2.2vw, 14px);
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .navbar ul li {
+        margin-right: 0;
     }
 
     .navlist .dropdown {
