@@ -528,12 +528,11 @@ footer {
 
     .navlist {
         position: fixed;
-        right: 0;
+        left: 0;
         top: 0;
         background-color: #ffffff;
         flex-direction: column;
         width: 100vw;
-        left: 0;
         height: 100%;
         justify-content: flex-start;
         padding-top: 60px;
