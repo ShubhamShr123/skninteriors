@@ -508,7 +508,8 @@ header.scrolled-nav{
     padding: 40px 6vw 20px;
     width: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow: hidden;
+    position: relative;
     box-sizing: border-box;
 }
 
@@ -1561,6 +1562,14 @@ footer a:hover {
         object-fit: fill;
         border-radius: 28px;
     }
+
+    .about-legacy-content{
+        width: 90%;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 
 /* Mobile only - stack utl.png image vertically */
 @media only screen and (max-width: 768px) {

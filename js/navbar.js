@@ -192,107 +192,39 @@ function ensureTopRollingBarStyles() {
     const style = document.createElement('style');
     style.id = 'top-rolling-bar-styles';
     style.textContent = `
+        header,
+        header.scrolled-nav,
+        header.beige-nav {
+            border-bottom: 1px solid rgba(74, 124, 89, 0.18);
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            overflow: visible;
+        }
+
+        .navbar,
+        .navbar.background,
+        .navbar.scrolled-nav,
+        .navbar.beige-nav,
+        .navbar.beige-nav.scrolled-nav {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            background: #F5F2EF;
+        }
+
         .top-rolling-bar {
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1100;
             width: 100%;
-            height: 30px;
-            border-radius: 0 0 14px 14px;
-            background: rgba(245, 242, 239, 0.97);
+            height: 32px;
+            border-radius: 0;
+            background: transparent;
             border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+            box-shadow: none;
             overflow: hidden;
-            backdrop-filter: blur(4px);
-        }
-
-        @media only screen and (min-width: 1101px) {
-            .top-rolling-bar {
-                left: 0;
-                transform: none;
-                width: 100vw;
-                max-width: 100vw;
-                border: none;
-                box-shadow: none;
-            }
-
-            .top-rolling-viewport {
-                width: 100%;
-            }
-
-            .top-rolling-track,
-            .top-rolling-track.show-second {
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr;
-                width: 100%;
-                transition: none;
-                transform: none !important;
-            }
-
-            .top-rolling-item {
-                grid-area: 1 / 1;
-                width: 100%;
-                animation-duration: 8s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                will-change: transform, opacity;
-            }
-
-            .top-rolling-item:first-child {
-                animation-name: rollingMessageOne;
-            }
-
-            .top-rolling-item:last-child {
-                animation-name: rollingMessageTwo;
-            }
-
-            @keyframes rollingMessageOne {
-                0% {
-                    transform: translateX(100vw);
-                    opacity: 0;
-                }
-                8% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                45% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                58% {
-                    transform: translateX(-100vw);
-                    opacity: 0;
-                }
-                100% {
-                    transform: translateX(-100vw);
-                    opacity: 0;
-                }
-            }
-
-            @keyframes rollingMessageTwo {
-                0% {
-                    transform: translateX(100vw);
-                    opacity: 0;
-                }
-                50% {
-                    transform: translateX(100vw);
-                    opacity: 0;
-                }
-                58% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                95% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateX(-100vw);
-                    opacity: 0;
-                }
-            }
+            backdrop-filter: none;
         }
 
         .top-rolling-viewport {
@@ -307,21 +239,28 @@ function ensureTopRollingBarStyles() {
         }
 
         .top-rolling-track.show-second {
-            transform: translateY(-30px);
+            transform: translateY(-32px);
         }
 
         .top-rolling-item {
-            height: 30px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 0 12px;
+            padding: 0 10px;
             color: #2f2f2f;
             font-family: "Poppins", sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             white-space: nowrap;
+            width: max-content;
+            max-width: calc(100vw - 16px);
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid rgba(74, 124, 89, 0.18);
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
         }
 
         .top-rolling-icons {
@@ -334,13 +273,13 @@ function ensureTopRollingBarStyles() {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             text-decoration: none;
             background: #4A7C59;
             color: #ffffff;
-            font-size: 12px;
+            font-size: 11px;
             line-height: 1;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
@@ -350,29 +289,6 @@ function ensureTopRollingBarStyles() {
             background-color: #3a6048;
         }
 
-        @media only screen and (max-width: 768px) {
-            .top-rolling-bar {
-                height: 28px;
-                border-radius: 0 0 12px 12px;
-            }
-
-            .top-rolling-track.show-second {
-                transform: translateY(-28px);
-            }
-
-            .top-rolling-item {
-                height: 28px;
-                font-size: 10px;
-                gap: 8px;
-                padding: 0 8px;
-            }
-
-            .top-rolling-icon {
-                width: 18px;
-                height: 18px;
-                font-size: 10px;
-            }
-        }
     `;
 
     document.head.appendChild(style);
