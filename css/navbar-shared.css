@@ -211,6 +211,69 @@ header.beige-nav {
     color: #333333;
 }
 
+.footer-contact-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(74, 124, 89, 0.18);
+}
+
+.footer-contact-card:hover .footer-contact-icon {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #F6E7B3 0%, #E8CD7A 100%);
+    color: #333333;
+}
+
+.footer-contact-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4A7C59 0%, #3a6048 100%);
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.footer-contact-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.footer-contact-body a {
+    color: #333333;
+    text-decoration: none;
+    line-height: 1.5;
+    word-break: break-word;
+    transition: color 0.2s ease;
+}
+
+.footer-contact-body a:hover {
+    color: #4A7C59;
+    text-decoration: underline;
+}
+
 .footer-column ul {
     list-style: none;
     padding: 0;

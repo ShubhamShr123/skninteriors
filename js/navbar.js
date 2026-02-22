@@ -60,7 +60,7 @@ function applyAutoAosAttributes() {
             return true;
         }
 
-        return !!element.closest('header, .navbar, .navlist, .top-rolling-bar, #splash-screen, footer, .project-overlay, .portfolio-card-overlay, .project-item-overlay');
+        return !!element.closest('header, .navbar, .navlist, .top-rolling-bar, footer, .project-overlay, .portfolio-card-overlay, .project-item-overlay');
     }
 
     function hasMeaningfulText(element) {
@@ -158,30 +158,13 @@ function replayInitiallyVisibleAosElements() {
 }
 
 function scheduleAosInitialization() {
-    const splashScreen = document.getElementById('splash-screen');
-
     const initialize = () => {
         loadAosAssets().then(() => {
             initAosSitewide();
         });
     };
 
-    if (!splashScreen) {
-        initialize();
-        return;
-    }
-
-    const style = window.getComputedStyle(splashScreen);
-    const isVisible = style.display !== 'none' && style.visibility !== 'hidden';
-
-    if (!isVisible) {
-        initialize();
-        return;
-    }
-
-    setTimeout(() => {
-        initialize();
-    }, 2600);
+    initialize();
 }
 
 function ensureTopRollingBarStyles() {
@@ -391,7 +374,7 @@ function createTopRollingBar() {
 // Hamburger menu toggle
 document.addEventListener('DOMContentLoaded', function() {
     scheduleAosInitialization();
-    createTopRollingBar();
+    ensureTopRollingBarStyles();
 
     const hamburger = document.getElementById('hamburger');
     const navlist = document.getElementById('navlist');

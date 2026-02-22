@@ -5,6 +5,14 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body{
@@ -16,6 +24,294 @@ body{
 }
 main{
     flex: 1;
+    width: 100%;
+    max-width: 100vw;
+    padding: 84px 5vw 40px;
+    box-sizing: border-box;
+}
+
+.about-hero,
+.about-overview,
+.about-story,
+.about-leadership,
+.about-capabilities,
+.about-process,
+.about-sectors,
+.about-cta {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 26px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.about-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: center;
+    background: #FBF8F3;
+    border: 1px solid #E9E3DA;
+    border-radius: 24px;
+    padding: 24px;
+    overflow: hidden;
+}
+
+.about-kicker {
+    font-size: 12px;
+    color: #4A7C59;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.about-hero h1 {
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.2;
+    color: #333333;
+    margin-bottom: 12px;
+}
+
+.about-hero p {
+    color: #333333;
+    line-height: 1.7;
+}
+
+.about-hero-media img,
+.about-story-media img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    display: block;
+    object-fit: cover;
+}
+
+.about-hero-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.about-btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.about-btn.primary {
+    background: #4A7C59;
+    color: #ffffff;
+    border: 2px solid #4A7C59;
+}
+
+.about-btn.primary:hover {
+    background: #3a6048;
+    border-color: #3a6048;
+}
+
+.about-btn.secondary {
+    background: transparent;
+    color: #4A7C59;
+    border: 2px solid #4A7C59;
+}
+
+.about-btn.secondary:hover {
+    color: #3a6048;
+    border-color: #3a6048;
+}
+
+.about-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.overview-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.overview-card h3 {
+    color: #4A7C59;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.overview-card p {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.about-story {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.about-hero-content,
+.about-story-content,
+.capability-item,
+.process-step,
+.leadership-card,
+.overview-card {
+    min-width: 0;
+}
+
+.about-story-content h2,
+.about-leadership h2,
+.about-capabilities h2,
+.about-process h2,
+.about-sectors h2,
+.about-cta h2 {
+    color: #333333;
+    font-size: clamp(24px, 2.6vw, 34px);
+    margin-bottom: 12px;
+}
+
+.about-story-content p,
+.leadership-card p,
+.about-cta p {
+    color: #333333;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.about-leadership,
+.about-capabilities,
+.about-process,
+.about-sectors,
+.about-cta {
+    background: #FBF8F3;
+    border: 1px solid #E9E3DA;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.leadership-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.leadership-card h3 {
+    color: #4A7C59;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.lead-role {
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.capability-grid,
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.capability-item,
+.process-step {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.capability-item h3,
+.process-step h3 {
+    color: #333333;
+    margin-bottom: 6px;
+    font-size: 19px;
+}
+
+.capability-item p,
+.process-step p {
+    color: #333333;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.process-step span {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: #4A7C59;
+    font-weight: 700;
+}
+
+.sector-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sector-tags span {
+    background: #ffffff;
+    border: 1px solid #E9E3DA;
+    border-radius: 999px;
+    padding: 8px 14px;
+    color: #333333;
+    font-size: 14px;
+}
+
+.about-cta {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1110px) {
+    main {
+        padding: 84px 4vw 32px;
+    }
+
+    .about-overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-hero,
+    .about-story {
+        grid-template-columns: 1fr;
+    }
+
+    .capability-grid,
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    main {
+        padding: 78px 4vw 26px;
+    }
+
+    .about-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .about-hero,
+    .about-story,
+    .about-leadership,
+    .about-capabilities,
+    .about-process,
+    .about-sectors,
+    .about-cta {
+        padding: 16px;
+        border-radius: 16px;
+    }
 }
 
 header{

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4q_74dtOntW82CbFLrR4anPxqn14-6nUzpJRT7CGvraWaLhkAa85s4TLs4_WaJo8/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby5h1gMYwjKR_wonTg8qLQTBNU8s-zK46fLbynV9VQe8Tlw2vBgMyLHuzi_-0aGRACq/exec';
 
     function setStatus(message, type) {
         statusText.textContent = message;

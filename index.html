@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20260222i">
     <link rel="stylesheet" href="css/hover/style.css">
     <link rel="shortcut icon" href="imgs/SKN Interior Solutions_NEW.jpg" type="image/x-icon">
-    <script src="js/navbar.js?v=20260222h"></script>
+    <script src="js/navbar.js?v=20260222i"></script>
     <script src="js/logos-scroll.js" defer></script>
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
@@ -31,15 +31,6 @@
 </head>
 
 <body class="home-page">
-    <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <div class="splash-content">
-            <img src="imgs/SKN Interior Solutions_NEW.jpg" alt="SKN Interior Solutions" class="splash-logo">
-            <h1 class="splash-brand-name">SKN INTERIOR SOLUTIONS</h1>
-            <p class="splash-tagline">Where Structural Precision Meets Architectural Artistry</p>
-        </div>
-    </div>
-
     <header>
         <nav class="navbar background">
             <a href="index.html" class="logo-link">
@@ -100,7 +91,7 @@
                         <li><strong>Seamless Design-to-Delivery:</strong> We transform blueprints into fully functional, move-in-ready environments through a turnkey process that prioritizes technical rigor and bespoke finishes.</li>
                         <li><strong>Complete Interior Design:</strong> Bespoke finishes that reflect your brand or your personal
                             lifestyle.</li>
-                        <li><strong>MEP and HVAC Excellence:</strong> Professional-grade Mechanical, Electrical, and Plumbing services,
+                        <li><strong>MEP and HVAC Excellence:</strong> Professional-grade Mechanicaltrical, and Plumbing services,
                             alongside specialized HVAC systems for climate-perfect environments.</li>
                     </ul>
                 </div>
@@ -254,8 +245,22 @@
         <div class="footer-content">
             <div class="footer-column">
                 <h3>Contact Us</h3>
-                <p>Email: skninteriors@outlook.com, skninteriors@zohomail.in</p>
-                <p>Phone: +91 9310326361, +91 9911486680</p>
+                <div class="footer-contact-stack">
+                    <div class="footer-contact-card">
+                        <div class="footer-contact-icon" aria-hidden="true">✉</div>
+                        <div class="footer-contact-body">
+                            <a href="mailto:skninteriors@outlook.com">skninteriors@outlook.com</a>
+                            <a href="mailto:skninteriors@zohomail.in">skninteriors@zohomail.in</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-card">
+                        <div class="footer-contact-icon" aria-hidden="true">☎</div>
+                        <div class="footer-contact-body">
+                            <a href="tel:+919310326361">+91 9310326361</a>
+                            <a href="tel:+919911486680">+91 9911486680</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="footer-column">
                 <h3>Quick Links</h3>
@@ -320,7 +325,9 @@
 
             let isDown = false;
             let startX = 0;
+            let startY = 0;
             let scrollLeft = 0;
+            let isHorizontalSwipe = false;
             let animationPaused = false;
 
             // Duplicate logos for infinite scroll
@@ -334,21 +341,48 @@
                 logosContainer.addEventListener('touchstart', (e) => {
                     isDown = true;
                     startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
                     scrollLeft = logosContainer.scrollLeft;
+                    isHorizontalSwipe = false;
                     pauseAnimation();
                 }, { passive: false });
 
                 logosContainer.addEventListener('touchmove', (e) => {
                     if (!isDown) return;
+                    const x = e.touches[0].clientX;
+                    const y = e.touches[0].clientY;
+                    const deltaX = Math.abs(x - startX);
+                    const deltaY = Math.abs(y - startY);
+
+                    if (!isHorizontalSwipe) {
+                        if (deltaY > deltaX) {
+                            isDown = false;
+                            resumeAnimation();
+                            return;
+                        }
+
+                        if (deltaX < 6) {
+                            return;
+                        }
+
+                        isHorizontalSwipe = true;
+                    }
+
                     e.preventDefault();
 
-                    const x = e.touches[0].clientX;
                     const walk = (startX - x);
                     logosContainer.scrollLeft = scrollLeft + walk;
                 }, { passive: false });
 
                 logosContainer.addEventListener('touchend', () => {
                     isDown = false;
+                    isHorizontalSwipe = false;
+                    resumeAnimation();
+                });
+
+                logosContainer.addEventListener('touchcancel', () => {
+                    isDown = false;
+                    isHorizontalSwipe = false;
                     resumeAnimation();
                 });
             }
@@ -373,7 +407,9 @@
 
             let isDownProjects = false;
             let startXProjects = 0;
+            let startYProjects = 0;
             let scrollLeftProjects = 0;
+            let isHorizontalSwipeProjects = false;
             let animationPausedProjects = false;
 
             // Duplicate projects for infinite scroll
@@ -387,21 +423,48 @@
                 projectsContainer.addEventListener('touchstart', (e) => {
                     isDownProjects = true;
                     startXProjects = e.touches[0].clientX;
+                    startYProjects = e.touches[0].clientY;
                     scrollLeftProjects = projectsContainer.scrollLeft;
+                    isHorizontalSwipeProjects = false;
                     pauseProjectsAnimation();
                 }, { passive: false });
 
                 projectsContainer.addEventListener('touchmove', (e) => {
                     if (!isDownProjects) return;
+                    const x = e.touches[0].clientX;
+                    const y = e.touches[0].clientY;
+                    const deltaX = Math.abs(x - startXProjects);
+                    const deltaY = Math.abs(y - startYProjects);
+
+                    if (!isHorizontalSwipeProjects) {
+                        if (deltaY > deltaX) {
+                            isDownProjects = false;
+                            resumeProjectsAnimation();
+                            return;
+                        }
+
+                        if (deltaX < 6) {
+                            return;
+                        }
+
+                        isHorizontalSwipeProjects = true;
+                    }
+
                     e.preventDefault();
 
-                    const x = e.touches[0].clientX;
                     const walk = (startXProjects - x);
                     projectsContainer.scrollLeft = scrollLeftProjects + walk;
                 }, { passive: false });
 
                 projectsContainer.addEventListener('touchend', () => {
                     isDownProjects = false;
+                    isHorizontalSwipeProjects = false;
+                    resumeProjectsAnimation();
+                });
+
+                projectsContainer.addEventListener('touchcancel', () => {
+                    isDownProjects = false;
+                    isHorizontalSwipeProjects = false;
                     resumeProjectsAnimation();
                 });
             }
@@ -421,23 +484,7 @@
             }
         });
 
-        // Splash Screen Handler
-        window.addEventListener('load', function() {
-            const splashScreen = document.getElementById('splash-screen');
-            if (!splashScreen) {
-                initAosAnimations();
-                return;
-            }
-            
-            setTimeout(function() {
-                splashScreen.classList.add('fade-out');
-                
-                setTimeout(function() {
-                    splashScreen.style.display = 'none';
-                    initAosAnimations();
-                }, 500); // Wait for fade out animation to complete
-            }, 2000); // Show splash for 2 seconds
-        });
+        window.addEventListener('load', initAosAnimations);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </body>
