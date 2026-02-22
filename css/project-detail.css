@@ -375,6 +375,9 @@ main {
     border-radius: 12px;
     object-fit: contain;
     background-color: #111111;
+    transition: transform 0.2s ease-out;
+    touch-action: none;
+    user-select: none;
 }
 
 .gallery-counter {
@@ -524,11 +527,24 @@ body.modal-open {
 }
 
 footer {
-    background-color: #8B7355;
-    color: #F5F2EF;
+    background-color: #e0e0e0;
+    color: #333333;
     text-align: center;
     padding: 20px;
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+footer a {
+    color: #4A7C59;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #D4AF37;
 }
 
 /* Responsive Design */
@@ -617,6 +633,71 @@ footer {
 @media (max-width: 768px) {
     .project-gallery-grid.four-column {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    /* Gallery modal full-screen on mobile */
+    .gallery-modal-content {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100%;
+        height: 100%;
+        gap: 0;
+    }
+
+    .gallery-modal-image {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        object-fit: contain;
+        touch-action: none;
+    }
+
+    .gallery-counter {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        font-size: 15px;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 6px 16px;
+        border-radius: 20px;
+    }
+
+    .gallery-close {
+        top: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 30px;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 20;
+    }
+
+    .gallery-nav {
+        background-color: transparent;
+        width: 50%;
+        height: 100%;
+        top: 0;
+        transform: none;
+        border-radius: 0;
+        padding: 0;
+        font-size: 0;
+        opacity: 0;
+        -webkit-tap-highlight-color: transparent;
+        tap-highlight-color: transparent;
+    }
+
+    .gallery-prev {
+        left: 0;
+    }
+
+    .gallery-next {
+        right: 0;
     }
 }
 

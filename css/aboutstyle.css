@@ -210,6 +210,31 @@ header.scrolled-nav{
     cursor: pointer;
 }
 
+footer{
+    display: flex;
+    flex-direction: column;
+    background-color: #e0e0e0;
+    min-height: 8vh;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.5;
+    gap: 8px;
+    padding: 15px 20px;
+}
+
+footer a {
+    color: #4A7C59;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #D4AF37;
+}
+
 /* Mobile and Tablet Responsive Styles */
 @media (max-width: 1024px) {
     .navlist {
