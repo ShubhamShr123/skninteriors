@@ -132,13 +132,17 @@ a.info-item:visited {
 
 .info-item:hover .info-icon {
     transform: scale(1.1);
-    background: linear-gradient(135deg, #3a6048 0%, #4A7C59 100%);
+    background: linear-gradient(135deg, #F6E7B3 0%, #E8CD7A 100%);
 }
 
 .info-icon i {
     font-size: 26px;
     color: #ffffff;
     pointer-events: none;
+}
+
+.info-item:hover .info-icon i {
+    color: #8A6A1F;
 }
 
 .info-content {
