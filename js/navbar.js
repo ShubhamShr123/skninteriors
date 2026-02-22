@@ -1,3 +1,189 @@
+function loadAosAssets() {
+    return new Promise(resolve => {
+        const existingScript = document.getElementById('skn-aos-js');
+        const existingAosGlobal = window.AOS;
+
+        if (!document.getElementById('skn-aos-css')) {
+            const aosCss = document.createElement('link');
+            aosCss.id = 'skn-aos-css';
+            aosCss.rel = 'stylesheet';
+            aosCss.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+            document.head.appendChild(aosCss);
+        }
+
+        if (existingAosGlobal) {
+            resolve();
+            return;
+        }
+
+        if (existingScript) {
+            existingScript.addEventListener('load', () => resolve(), { once: true });
+            existingScript.addEventListener('error', () => resolve(), { once: true });
+            return;
+        }
+
+        const aosScript = document.createElement('script');
+        aosScript.id = 'skn-aos-js';
+        aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+        aosScript.async = true;
+        aosScript.onload = () => resolve();
+        aosScript.onerror = () => resolve();
+        document.head.appendChild(aosScript);
+    });
+}
+
+function applyAutoAosAttributes() {
+    const selectors = [
+        'main img',
+        'main h1, main h2, main h3, main h4, main h5, main h6',
+        'main p, main li, main figcaption, main blockquote',
+        'main a, main button, main span, main strong, main em',
+        '.footer-info img, .footer-info h1, .footer-info h2, .footer-info h3, .footer-info h4, .footer-info h5, .footer-info h6',
+        '.footer-info p, .footer-info li, .footer-info a, .footer-info span, .footer-info strong',
+        'footer p, footer span, footer a, footer strong'
+    ];
+
+    const uniqueElements = [];
+    const seen = new Set();
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(element => {
+            if (!seen.has(element)) {
+                seen.add(element);
+                uniqueElements.push(element);
+            }
+        });
+    });
+
+    function isExcluded(element) {
+        if (element.matches && element.matches('.project-item img')) {
+            return true;
+        }
+
+        return !!element.closest('header, .navbar, .navlist, .top-rolling-bar, #splash-screen, footer, .project-overlay, .portfolio-card-overlay, .project-item-overlay');
+    }
+
+    function hasMeaningfulText(element) {
+        return (element.textContent || '').trim().length > 0;
+    }
+
+    let delay = 80;
+    uniqueElements.forEach(element => {
+        if (element.hasAttribute('data-aos')) {
+            return;
+        }
+
+        if (isExcluded(element)) {
+            return;
+        }
+
+        const isImage = element.tagName === 'IMG';
+        const isTextual = !isImage;
+
+        if (isTextual && !hasMeaningfulText(element)) {
+            return;
+        }
+
+        element.setAttribute('data-aos', isImage ? 'zoom-in' : 'fade-up');
+        element.setAttribute('data-aos-delay', String(delay));
+        delay += 60;
+        if (delay > 380) {
+            delay = 80;
+        }
+    });
+}
+
+function initAosSitewide() {
+    if (window.__sknAosInitialized) {
+        return;
+    }
+
+    window.__sknAosInitialized = true;
+    applyAutoAosAttributes();
+
+    if (window.AOS) {
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 80
+        });
+
+        if (typeof AOS.refreshHard === 'function') {
+            requestAnimationFrame(() => {
+                AOS.refreshHard();
+                replayInitiallyVisibleAosElements();
+            });
+            window.addEventListener('load', () => {
+                AOS.refreshHard();
+                replayInitiallyVisibleAosElements();
+            }, { once: true });
+        } else {
+            replayInitiallyVisibleAosElements();
+        }
+    }
+}
+
+function replayInitiallyVisibleAosElements() {
+    const animatedElements = document.querySelectorAll('[data-aos].aos-animate');
+
+    if (!animatedElements.length) {
+        return;
+    }
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const toReplay = [];
+
+    animatedElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
+
+        if (isVisible) {
+            toReplay.push(element);
+            element.classList.remove('aos-animate');
+        }
+    });
+
+    if (!toReplay.length) {
+        return;
+    }
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toReplay.forEach(element => {
+                element.classList.add('aos-animate');
+            });
+        });
+    });
+}
+
+function scheduleAosInitialization() {
+    const splashScreen = document.getElementById('splash-screen');
+
+    const initialize = () => {
+        loadAosAssets().then(() => {
+            initAosSitewide();
+        });
+    };
+
+    if (!splashScreen) {
+        initialize();
+        return;
+    }
+
+    const style = window.getComputedStyle(splashScreen);
+    const isVisible = style.display !== 'none' && style.visibility !== 'hidden';
+
+    if (!isVisible) {
+        initialize();
+        return;
+    }
+
+    setTimeout(() => {
+        initialize();
+    }, 2600);
+}
+
 function ensureTopRollingBarStyles() {
     if (document.getElementById('top-rolling-bar-styles')) {
         return;
@@ -288,6 +474,7 @@ function createTopRollingBar() {
 
 // Hamburger menu toggle
 document.addEventListener('DOMContentLoaded', function() {
+    scheduleAosInitialization();
     createTopRollingBar();
 
     const hamburger = document.getElementById('hamburger');

@@ -937,7 +937,7 @@ header.scrolled-nav{
 }
 
 .project-item:hover img{
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
     filter: grayscale(100%);
 }
 
@@ -1098,7 +1098,7 @@ footer a:hover {
     color: #D4AF37;
 }
 
-@media only screen and (min-width: 1664px) {
+@media only screen and (min-width: 1200px) {
     .home-mainbox .firsthalf{
         display: grid;
         grid-template-columns: minmax(260px, 1fr) minmax(340px, 1.2fr);
@@ -1147,7 +1147,7 @@ footer a:hover {
     }
 }
 
-@media only screen and (max-width: 1663px) {
+@media only screen and (max-width: 1199px) {
     .home-mainbox .firsthalf{
         display: flex;
         flex-direction: column;
