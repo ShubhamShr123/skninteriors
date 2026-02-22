@@ -57,77 +57,7 @@ header.beige-nav{
     background: #ffffff;
 }
 
-.logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 55px;
-}
 
-.logo img{
-    width: auto;
-    height: 44px;
-    max-width: none;
-    display: block;
-}
-
-.logo-link {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    padding-left: 14px;
-    min-width: 0;
-    height: 55px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.brand-name {
-    font-family: "Poppins", sans-serif;
-    font-size: clamp(12px, 1.15vw, 18px);
-    font-weight: 700;
-    color: #333333;
-    line-height: 1;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: clip;
-    max-width: none;
-}
-
-.navbar ul{
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 16px;
-}
-
-.navbar ul li{
-    list-style: none;
-    margin-right: 55px;
-
-}
-
-.navbar ul li a{
-    text-decoration: none;
-    color: #333333;
-    font-size: large;
-}
-
-.navbar ul li a.get-in-touch {
-    background-color: #4A7C59 !important;
-    color: #ffffff !important;
-    padding: 8px 16px !important;
-    border-radius: 20px !important;
-    text-decoration: none !important;
-}
-
-.navbar ul li a.get-in-touch:hover {
-    background-color: #3a6048 !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 8px rgba(74, 124, 89, 0.3) !important;
-}
 
 .navbar ul li a:hover{
     color: #D4AF37;
@@ -269,9 +199,37 @@ main{
 .mainbox1 .bigtext{
     text-align: center;
     font-size: 35px;
-    font-weight: 400;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+}
+
+.mainbox1 .bigtext .hero-title {
+    display: block;
+    text-transform: uppercase;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    color: #4A7C59;
+    background: linear-gradient(90deg, #D4AF37 0%, #4A7C59 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mainbox1 .bigtext .hero-tagline {
+    display: block;
+    font-family: "Edu VIC WA NT Beginner", cursive;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.2;
 
 }
 .mainbox1 .smalltext{
@@ -483,7 +441,10 @@ main{
     font-size: 72px;
     font-weight: 700;
     font-family: "Figtree", sans-serif;
-    color: #1f1f1f;
+    background: linear-gradient(120deg, #D4AF37 0%, #C3A24D 24%, #4A7C59 50%, #6D9A7A 76%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     letter-spacing: 2px;
     margin: 0;
     display: block;
@@ -829,6 +790,10 @@ footer a:hover {
         letter-spacing: 2px;
         white-space: normal;
         word-break: break-word;
+        background: linear-gradient(120deg, #D4AF37 0%, #C3A24D 24%, #4A7C59 50%, #6D9A7A 76%, #D4AF37 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     /* Navbar styles */
@@ -1222,6 +1187,10 @@ footer a:hover {
         letter-spacing: 1px;
         white-space: normal;
         word-break: break-word;
+        background: linear-gradient(120deg, #D4AF37 0%, #C3A24D 24%, #4A7C59 50%, #6D9A7A 76%, #D4AF37 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 

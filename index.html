@@ -95,7 +95,7 @@
                     <img loading="lazy" decoding="async" data-aos="zoom-in" data-aos-delay="280" src="imgs/big cash (17).jpg" alt="SKN Interior Solutions legacy" class="legacy-img-alternate">
                 </div>
                 <div class="about-legacy-content" data-aos="fade-left" data-aos-delay="180">
-                    <h2 data-aos="fade-up" data-aos-delay="220">From Vision to Reality: The SKN Interior Solutions Legacy</h2>
+                    <h2 data-aos="fade-up" data-aos-delay="220"><strong>From Vision to Reality: The SKN Interior Solutions Legacy</strong></h2>
                     <ul>
                         <li><strong>30 Years of Elite Industry Mastery:</strong> Established in 2019, SKN is built on three decades of leadership in high-stakes commercial projects, bringing a new level of technical discipline to the design world.</li>
                         <li><strong>Commercial Powerhouse meets Residential Expertise:</strong> We bridge the gap between sectors by applying large-scale structural precision to premium villas and infusing corporate spaces with aesthetic soul.</li>
@@ -332,6 +332,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            initAosAnimations();
+
             // Logos scrolling
             const logosTrack = document.querySelector('.logos-track');
             const logosContainer = document.querySelector('.logos-container');
