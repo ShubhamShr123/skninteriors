@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/navbar-shared.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="js/navbar.js?v=20260222h"></script>
+    <script src="js/contact-form.js" defer></script>
     <title>Contact</title>
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -47,10 +48,39 @@
     <main>
         <div class="contact-heading">
             <h1>Write to us</h1>
+            <p class="contact-description">Tell us about your project requirements and design vision. Our expert team will review your details and get back to you shortly with personalized solutions.</p>
         </div>
         <section class="contact-layout">
             <div class="contact-form">
-                <iframe title="SKN Interior Solutions Contact Form" src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__WuEwh9UMDUxU0xOQzlBNFdKQU9XTklaQkoxSENWSy4u&embed=true" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+                <form id="contactForm" class="contact-form-card" novalidate>
+                    <div class="form-grid">
+                        <label class="form-field">
+                            <span>Full Name</span>
+                            <input type="text" name="name" required autocomplete="name" placeholder="Enter your full name">
+                        </label>
+                        <label class="form-field">
+                            <span>Email Address</span>
+                            <input type="email" name="email" required autocomplete="email" placeholder="Enter your email">
+                        </label>
+                    </div>
+
+                    <label class="form-field">
+                        <span>Phone Number</span>
+                        <input type="tel" name="phone" required autocomplete="tel" placeholder="Enter your phone number">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Message</span>
+                        <textarea name="message" rows="6" required placeholder="Tell us about your project requirements"></textarea>
+                    </label>
+
+                    <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                    <div class="form-actions">
+                        <button type="submit" id="contactSubmitBtn">Submit</button>
+                    </div>
+                    <p id="contactFormStatus" class="form-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
         </section>
         <section class="contact-info-box" data-aos="fade-up">

@@ -30,6 +30,16 @@ main{
     text-align: center;
 }
 
+.contact-description{
+    font-size: 16px;
+    color: #555555;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-style: italic;
+}
+
 .contact-layout{
     display: flex;
     gap: 30px;
@@ -60,12 +70,119 @@ main{
     margin: 0 auto;
 }
 
-.contact-form iframe{
+.contact-form-card{
     width: 100%;
-    min-height: 700px;
+    background-color: #ffffff;
+    border: 1px solid #e8e3d8;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.form-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    width: 100%;
+}
+
+.form-field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.form-field span{
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.form-field input,
+.form-field textarea{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d9d1c4;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #fcfbf8;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus{
+    border-color: #4A7C59;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.16);
+}
+
+.form-field textarea{
+    resize: vertical;
+    min-height: 140px;
+}
+
+.hp-field{
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.form-actions{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form-actions button{
+    background-color: #4A7C59;
     border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px 0 rgba(63, 69, 81, 0.16);
+    color: #ffffff;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-actions button:hover{
+    background-color: #3a6048;
+    transform: translateY(-1px);
+}
+
+.form-actions button:disabled{
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-status{
+    min-height: 22px;
+    font-size: 14px;
+    margin: 0;
+    color: #555555;
+}
+
+.form-status.success{
+    color: #2f6b3f;
+}
+
+.form-status.pending{
+    color: #7a6030;
+}
+
+.form-status.error{
+    color: #9f2f2f;
 }
 
 /* Contact Info Box Styles */
@@ -474,6 +591,10 @@ footer a:hover {
         text-align: center;
     }
 
+    .contact-description{
+        font-size: 14px;
+    }
+
     .contact-layout{
         flex-direction: column;
         padding: 24px 12px 20px;
@@ -486,9 +607,13 @@ footer a:hover {
         max-width: 100%;
     }
 
-    .contact-form iframe{
-        width: 100%;
-        min-height: 800px;
+    .form-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-card{
+        padding: 20px;
+        overflow-x: hidden;
     }
 
     .contact-info-box {
@@ -536,16 +661,20 @@ footer a:hover {
         text-align: center;
     }
 
+    .contact-description{
+        font-size: 13px;
+    }
+
     .contact-layout{
         flex-direction: column;
         padding: 20px 10px 15px;
         gap: 15px;
     }
 
-    .contact-form iframe{
-        width: 100%;
-        min-height: 900px;
-        box-sizing: border-box;
+    .contact-form-card{
+        padding: 16px;
+        border-radius: 14px;
+        overflow-x: hidden;
     }
 
     .contact-info-box {
