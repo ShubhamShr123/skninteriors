@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const phoneField = form.elements['phone'];
+    if (phoneField) {
+        phoneField.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+    }
+
     const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4q_74dtOntW82CbFLrR4anPxqn14-6nUzpJRT7CGvraWaLhkAa85s4TLs4_WaJo8/exec';
 
     function setStatus(message, type) {
@@ -22,6 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!form.checkValidity()) {
             form.reportValidity();
+            return;
+        }
+
+        const phone = form.elements['phone'].value.trim();
+        const email = form.elements['email'].value.trim();
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+            setStatus('Phone number must be exactly 10 digits.', 'error');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setStatus('Please enter a valid email address.', 'error');
             return;
         }
 
