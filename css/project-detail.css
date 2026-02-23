@@ -423,9 +423,9 @@ main {
     .gallery-nav:active,
     .gallery-nav:focus,
     .gallery-nav:focus-visible {
-        background-color: transparent;
-        outline: none;
-        box-shadow: none;
+        background-color: transparent !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
 }
 
