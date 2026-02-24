@@ -8,10 +8,7 @@
         box-shadow: none !important;
     }
 }
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700;900&display=swap');
 
 @keyframes about-gradient-shift {
     0% {
@@ -39,7 +36,7 @@ body {
 }
 
 body{
-    font-family: "Poppins", sans-serif;
+    font-family: 'Lato', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -362,6 +359,11 @@ main{
     .about-page-title p {
         margin-top: 6px;
         letter-spacing: 0.5px;
+    }
+
+    /* Ensure the ABOUT heading sits below the fixed navbar on small screens */
+    .about-page-title {
+        margin-top: 18px;
     }
 
     .about-overview {
