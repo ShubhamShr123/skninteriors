@@ -101,7 +101,8 @@ main{
 
 .about-hero {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    /* make the media column slightly wider so the image fills more space */
+    grid-template-columns: 1fr 1.2fr;
     gap: 24px;
     align-items: center;
     background: #FBF8F3;
@@ -109,6 +110,8 @@ main{
     border-radius: 24px;
     padding: 24px;
     overflow: hidden;
+    /* allow the hero section to be taller so the image isn't clipped */
+    min-height: 520px;
 }
 
 .about-kicker {
@@ -139,6 +142,27 @@ main{
     border-radius: 16px;
     display: block;
     object-fit: cover;
+}
+
+/* Prevent the hero image from being cropped vertically on large screens */
+.about-hero-media {
+    display: flex;
+    align-items: center;
+}
+
+.about-hero-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.about-hero-media img {
+    /* fill the media column so there's no empty space to the right */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* can be changed to 'contain' if you prefer no cropping */
+    border-radius: 12px;
 }
 
 .about-hero-actions {
@@ -339,6 +363,8 @@ main{
     .about-hero,
     .about-story {
         grid-template-columns: 1fr;
+        /* on narrow screens allow natural height so content stacks comfortably */
+        min-height: auto;
     }
 
     .capability-grid,
