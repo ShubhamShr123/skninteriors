@@ -3,5 +3,6 @@
         "Set-Content": true,
         "Test-Path": true,
         "ForEach-Object": true
-    }
+    },
+    "liveServer.settings.port": 5501
 }
