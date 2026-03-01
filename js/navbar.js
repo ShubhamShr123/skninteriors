@@ -219,70 +219,35 @@ function ensureTopRollingBarStyles() {
             display: flex;
             flex-direction: column;
             transition: transform 0.5s ease;
-
-                function isTabletOrMobile() {
-                    return window.matchMedia('(max-width: 1110px)').matches;
-                }
-
-                function openMenu() {
-                    hamburger.classList.add('active');
-                    navlist.classList.add('active');
-
-                    if (!overlay) {
-                        overlay = document.createElement('div');
-                        overlay.className = 'overlay';
-                        document.body.appendChild(overlay);
-                        overlay.addEventListener('click', closeMenu);
-                    }
-
-                    overlay.classList.add('active');
-
-                    if (isTabletOrMobile()) {
-                        navlist.style.top = '80px';
-                        navlist.style.maxHeight = '60vh';
-                        // rely on CSS transform/opacity transitions for smooth drop
-                        navlist.style.transform = '';
-                    } else {
-                        navlist.style.top = '0';
-                        navlist.style.maxHeight = '';
-                        // rely on CSS for desktop slide-in
-                        navlist.style.transform = '';
-                    }
-
-                    // rely on the hamburger control to open/close the menu; do not inject
-                    // an extra in-menu close button to avoid duplicate controls
-                }
-
-                function closeMenu() {
-                    hamburger.classList.remove('active');
-                    navlist.classList.remove('active');
-                    navlist.style.top = '';
-                    navlist.style.height = '';
-                    navlist.style.maxHeight = '';
-                    navlist.style.transform = '';
-
-                    const closeBtn = navlist.querySelector('.close-btn');
-                    if (closeBtn) {
-                        closeBtn.remove();
-                    }
-
-                    if (overlay) {
-                        overlay.classList.remove('active');
-                        if (overlay.parentNode) {
-                            overlay.parentNode.removeChild(overlay);
-                        }
-                        overlay = null;
-                    }
-
-                    closeAllDropdowns();
-                }
         }
 
-                    if (navlist.classList.contains('active')) {
-                        closeMenu();
-                    } else {
-                        openMenu();
-                    }
+        .top-rolling-track.show-second {
+            transform: translateY(-50%);
+        }
+
+        .top-rolling-item {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .top-rolling-icons {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .top-rolling-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             text-decoration: none;
             background: #4A7C59;
@@ -461,9 +426,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function ensureLottieHamburger() {
         if (!hamburger) return;
 
-        // compute JSON path relative to current page (projects pages live in /projects/)
-        const path = (window.location.pathname || '').toLowerCase();
-        const base = path.includes('/projects/') ? '../' : '';
+        // compute JSON path relative to current page
+        const base = getRootPrefix();
         const lottieJson = base + 'animated icons/lottieflow-menu-nav-11-9-000000-easey.json';
 
         // load lottie-player webcomponent if not already loaded
@@ -488,8 +452,8 @@ document.addEventListener('DOMContentLoaded', function() {
             player.setAttribute('background', 'transparent');
             player.setAttribute('speed', '1');
             // do not autoplay or loop — we will control playback on toggle
-            player.style.width = '36px';
-            player.style.height = '36px';
+            player.style.width = '24px';
+            player.style.height = '24px';
             player.style.display = 'block';
             player.style.margin = '0';
             // expose reference for open/close control
@@ -594,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         primaryFooter.innerHTML = `
-            <div>COPYRIGHT &copy; skninteriors.com 2026</div>
+            <div>COPYRIGHT &copy; shriraminteriors.in 2026</div>
             <div>Managed by <a href="https://wa.me/919310326361" target="_blank" rel="noopener noreferrer">Shubham Sharma</a></div>
         `;
 
@@ -603,106 +567,226 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    /* Create compact magnify-to-search behavior for very small screens */
-    function ensureMobileSearchToggle() {
-        const navSearch = document.querySelector('.nav-search');
-        if (!navSearch) return;
-        if (navSearch.dataset._searchToggle === '1') return;
-        navSearch.dataset._searchToggle = '1';
+    /* Search overlay: icon trigger in navbar + full-screen search panel */
+    function ensureSearchOverlay() {
+        if (document.querySelector('.search-overlay-backdrop')) return;
+        var navSearch = document.querySelector('.nav-search');
+        if (navSearch) navSearch.style.display = 'none';
 
-        const input = navSearch.querySelector('input[type="search"]');
-        if (!input) return;
-        input.classList.add('search-input');
+        var right = document.querySelector('.nav-top .right');
+        if (!right) return;
 
-        const toggle = document.createElement('button');
-        toggle.type = 'button';
-        toggle.className = 'nav-search-toggle';
-        toggle.setAttribute('aria-label', 'Open search');
-        toggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
-        toggle.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:none;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.08);padding:0;margin:0;';
+        // --- Trigger icon ---
+        var trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'search-trigger';
+        trigger.setAttribute('aria-label', 'Search');
+        trigger.setAttribute('role', 'button');
+        trigger.setAttribute('tabindex', '0');
+        trigger.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+        right.appendChild(trigger);
 
-        const closeBtn = document.createElement('button');
-        closeBtn.type = 'button';
-        closeBtn.className = 'nav-search-close';
-        closeBtn.setAttribute('aria-label', 'Close search');
-        closeBtn.innerHTML = '&times;';
-        closeBtn.style.cssText = 'display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:none;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.08);padding:0;margin:0;font-size:20px;';
+        // --- Overlay DOM ---
+        var backdrop = document.createElement('div');
+        backdrop.className = 'search-overlay-backdrop';
+        var panel = document.createElement('div');
+        panel.className = 'search-overlay-panel';
+        panel.innerHTML =
+            '<div class="search-overlay-inner">' +
+                '<div class="search-overlay-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>' +
+                '<input type="search" class="search-overlay-input" placeholder="Search pages, projects\u2026" aria-label="Search" autocomplete="off">' +
+                '<button type="button" class="search-overlay-close" aria-label="Close search">&times;</button>' +
+            '</div>' +
+            '<div class="search-overlay-divider"></div>' +
+            '<div class="search-overlay-results"></div>';
+        backdrop.appendChild(panel);
+        document.body.appendChild(backdrop);
 
-        // Insert toggle before input; append close button
-        navSearch.insertBefore(toggle, input);
-        navSearch.appendChild(closeBtn);
+        var overlayInput = panel.querySelector('.search-overlay-input');
+        var closeBtn = panel.querySelector('.search-overlay-close');
+        var resultsContainer = panel.querySelector('.search-overlay-results');
 
-        // initial state: let CSS decide for larger screens, compact for small
-        input.style.display = '';
-
-        function openSearch() {
-            navSearch.classList.add('expanded');
-            input.style.display = 'block';
-            closeBtn.style.display = 'inline-flex';
-            toggle.style.display = 'none';
-            try { input.focus(); } catch (e) {}
+        function openOverlay() {
+            backdrop.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            // Focus immediately (preserves user-gesture context for iOS keyboard)
+            try { overlayInput.focus(); } catch (e) {}
+            // Retry after CSS transition completes (fallback)
+            setTimeout(function() { try { overlayInput.focus(); } catch(e){} }, 400);
+        }
+        function closeOverlay() {
+            backdrop.classList.remove('open');
+            document.body.style.overflow = '';
+            overlayInput.value = '';
+            resultsContainer.innerHTML = '';
+            try { overlayInput.blur(); } catch (e) {}
         }
 
-        function closeSearch() {
-            navSearch.classList.remove('expanded');
-            closeBtn.style.display = 'none';
-            if (window.matchMedia('(min-width:542px)').matches) {
-                input.style.display = '';
-            } else {
-                input.style.display = 'none';
-            }
-            toggle.style.display = window.matchMedia('(max-width:541px)').matches ? 'inline-flex' : 'none';
-            try { input.blur(); } catch (e) {}
+        // --- Mobile-robust event handling ---
+        // Prevent double-fire from touch + click using a debounce lock
+        var triggerLock = false;
+        function handleTriggerTap(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (triggerLock) return;
+            triggerLock = true;
+            setTimeout(function() { triggerLock = false; }, 400);
+            openOverlay();
         }
+        trigger.addEventListener('click', handleTriggerTap);
+        trigger.addEventListener('touchend', handleTriggerTap, { passive: false });
 
-        toggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            // toggle opens the search; if already expanded do nothing (closing handled by outside click)
-            if (!navSearch.classList.contains('expanded')) openSearch();
-        });
+        closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeOverlay(); });
+        closeBtn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); closeOverlay(); }, { passive: false });
 
-        closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            closeSearch();
-        });
-
+        backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeOverlay(); });
+        panel.addEventListener('click', function(e) { e.stopPropagation(); });
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navSearch.classList.contains('expanded')) {
-                closeSearch();
-            }
+            if (e.key === 'Escape' && backdrop.classList.contains('open')) closeOverlay();
         });
 
-        // Close the expanded search when clicking outside of it
-        document.addEventListener('click', function(e) {
-            if (!navSearch.classList.contains('expanded')) return;
-            if (navSearch.contains(e.target)) return;
-            // clicked outside
-            closeSearch();
-        });
+        window.__searchOverlay = { input: overlayInput, results: resultsContainer, open: openOverlay, close: closeOverlay };
 
+        // ================================================================
+        //  SITE SEARCH WITH CONTENT INDEXING
+        // ================================================================
+        var rootPrefix = (function() {
+            var p = (window.location.pathname || '').toLowerCase();
+            if (p.includes('/projects/miscellenous/')) return '../../';
+            if (p.includes('/projects/')) return '../';
+            return '';
+        })();
 
-        function handleResize() {
-            const small = window.matchMedia('(max-width:541px)').matches;
-            if (small) {
-                // compact icon-only state on small screens
-                input.style.display = 'none';
-                toggle.style.display = 'inline-flex';
-                closeBtn.style.display = 'none';
-            } else {
-                // larger screens: show input, hide toggle
-                input.style.display = '';
-                toggle.style.display = 'none';
-                closeBtn.style.display = 'none';
-                navSearch.classList.remove('expanded');
-            }
+        // --- Rich default entries with content keywords (instant results before sitemap loads) ---
+        var pageMap = new Map();
+        [
+            { url: rootPrefix + 'index.html', title: 'Home',
+              description: 'Shri Ram Interior Solutions delivers premium residential and commercial turnkey interiors with civil, MEP, HVAC, and bespoke finishes across India.',
+              body: 'Where Structural Precision Meets Architectural Artistry. 30-year legacy of managing high-stakes commercial developments. Elite corporate discipline and technical rigor. 360° Turnkey Ecosystem. Civil work MEP excellence bespoke finishes. Pan-India expertise. Design-to-delivery experience. Why Choose Us: Experience, Expert Team, Precision Focus, Luxury Excellence, Reliability, Trustworthy Partner.' },
+
+            { url: rootPrefix + 'about.html', title: 'About Us',
+              description: 'About Shri Ram Interior Solutions — 30 years of elite industry mastery in commercial and residential interior design.',
+              body: 'Company history, vision, mission. Interior design expertise. Leadership team. Commercial powerhouse meets residential expertise. Comprehensive 360-degree ecosystem. Structural civil MEP excellence. Seamless design-to-delivery. Complete interior design. Bespoke finishes.' },
+
+            { url: rootPrefix + 'portfolio.html', title: 'Portfolio',
+              description: 'Browse our portfolio of completed interior projects: corporate offices, showrooms, luxury residences, and more.',
+              body: 'Big Cash, Powertech, Clark Hotels, Golden Tobie, PDAG, Isharya, Panasonic, Toto, Micromax, Aerocity, Jatan Singh, Mr Koti, Shobha. Commercial projects, residential projects, showroom designs. Bedrooms, kitchens, sofas, TV units, almirahs, dining.' },
+
+            { url: rootPrefix + 'services.html', title: 'Services',
+              description: 'Explore Shri Ram services: Civil, Interior Design, HVAC, MEP, Networking, CCTV, Plumbing, Firefighting, Furniture, Automation, Wall Coverings, and Flooring.',
+              body: 'CIVIL: foundational structural excellence masonry plastering structural modifications building integrity durability. INTERIOR DESIGN: complete bespoke interior spaces. HVAC: heating ventilation air conditioning climate control energy-efficient systems indoor air quality. MEP: Mechanical Electrical Plumbing professional-grade systems international standards efficiency safety. NETWORKING: data voice LAN infrastructure cabling. CCTV: surveillance security cameras monitoring systems. PLUMBING: domestic water drainage greywater recycling sanitary installations pipes fittings. FIREFIGHTING: fire safety suppression sprinkler systems alarm detection. FURNITURE: custom bespoke modular furniture desks chairs tables. AUTOMATION: smart building lighting controls access systems BMS. WALL COVERINGS: wallpaper decorative paneling cladding texture paint. FLOORING: tiles marble wood laminate vinyl epoxy natural stone.' },
+
+            { url: rootPrefix + 'contact.html', title: 'Contact',
+              description: 'Contact Shri Ram Interior Solutions for your interior design needs. Phone, email, office location in Gurugram.',
+              body: 'Get in touch. Phone +91 9310326361 +91 9911486680. Email shriraminteriors@zohomail.in shriraminteriorsolutions@gmail.com. Office: Sector 40, Gurugram, Haryana. Contact form name email message.' },
+
+            { url: rootPrefix + 'residential.html', title: 'Residential',
+              description: 'Premium residential interior design: luxury villas, apartments, homes, bedrooms, kitchens, living rooms.',
+              body: 'Residential interior design. Luxury villas apartments homes. Bedroom design kitchen design living room bathroom modular wardrobe. Custom furniture flooring painting wallpaper false ceiling.' },
+
+            { url: rootPrefix + 'commercial.html', title: 'Commercial',
+              description: 'Commercial interior design: corporate offices, banks, hotels, restaurants, conference rooms.',
+              body: 'Commercial office interior design. Corporate offices banks hotels restaurants conference rooms reception areas cabins workstations. Turnkey fit-out design-build leasehold improvement.' },
+
+            { url: rootPrefix + 'commercial-showrooms.html', title: 'Commercial Showrooms',
+              description: 'Showroom interior design for retail spaces, brand stores, exhibition areas.',
+              body: 'Showroom interior design. Retail spaces brand stores exhibition display jewellery fashion electronics automobile dealership. Visual merchandising lighting branding.' }
+        ].forEach(function(p) { pageMap.set(p.url, p); });
+
+        var fullIndexReady = false;
+        function titleFromPath(fp) {
+            var f = (fp.split('/').pop() || fp).replace(/\.html?$/i, '');
+            return f.replace(/[-_]+/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
         }
 
-        window.addEventListener('resize', handleResize);
-        handleResize();
+        async function loadSitemapUrls() {
+            try {
+                var resp = await fetch(rootPrefix + 'sitemap.xml', { cache: 'no-cache' });
+                if (!resp.ok) return;
+                var text = await resp.text();
+                var xml = new DOMParser().parseFromString(text, 'application/xml');
+                var locs = Array.from(xml.querySelectorAll('url > loc')).map(function(n) { return (n.textContent || '').trim(); }).filter(Boolean);
+                var parser = new DOMParser();
+                for (var i = 0; i < locs.length; i++) {
+                    try {
+                        var parsed = new URL(locs[i], window.location.origin);
+                        var pn = parsed.pathname || '';
+                        if (pn.startsWith('/')) pn = pn.slice(1);
+                        if (!pn || pn.endsWith('/')) pn += 'index.html';
+                        if (!pageMap.has(pn)) pageMap.set(pn, { url: pn, title: titleFromPath(pn) });
+                        try {
+                            var r2 = await fetch(pn, { credentials: 'same-origin' });
+                            if (!r2.ok) continue;
+                            var dt = await r2.text();
+                            var doc = parser.parseFromString(dt, 'text/html');
+                            var t = (doc.querySelector('title') || { textContent: titleFromPath(pn) }).textContent.trim();
+                            var dm = doc.querySelector('meta[name="description"]') || doc.querySelector('meta[property="og:description"]');
+                            var d = dm ? (dm.getAttribute('content') || '') : '';
+                            var b = doc.body ? doc.body.textContent.replace(/\s+/g, ' ').trim() : '';
+                            pageMap.set(pn, { url: pn, title: t, description: d, body: b });
+                        } catch (e) { continue; }
+                    } catch (e) { if (!pageMap.has(locs[i])) pageMap.set(locs[i], { url: locs[i], title: titleFromPath(locs[i]) }); }
+                }
+                fullIndexReady = true;
+            } catch (e) { console.warn('Search index failed:', e); }
+        }
+
+        function filterEntries(query) {
+            var q = (query || '').trim().toLowerCase();
+            if (!q) return [];
+            return Array.from(pageMap.values()).map(function(entry) {
+                var ti = (entry.title || '').toLowerCase(), ur = (entry.url || '').toLowerCase();
+                var bo = (entry.body || '').toLowerCase(), de = (entry.description || '').toLowerCase();
+                var s = 0;
+                if (ti.includes(q)) s += 80;
+                if (ur.includes(q)) s += 30;
+                if (de.includes(q)) s += 40;
+                var bi = bo.indexOf(q);
+                if (bi !== -1) s += 50 + Math.max(0, 100 - Math.floor(bi / 10));
+                if (ti.startsWith(q)) s += 20;
+                return { url: entry.url, title: entry.title, description: entry.description, body: entry.body, score: s, bodyIndex: bi };
+            }).filter(function(x) { return x.score > 0; }).sort(function(a, b) { return b.score - a.score; }).slice(0, 10);
+        }
+
+        function renderResults(entries) {
+            resultsContainer.innerHTML = '';
+            if (!entries.length) {
+                if ((overlayInput.value || '').trim().length > 0) {
+                    resultsContainer.innerHTML = '<p style="padding:16px 20px;color:#999;font-size:14px;">No results found.</p>';
+                }
+                return;
+            }
+            var ul = document.createElement('ul');
+            entries.forEach(function(entry) {
+                var li = document.createElement('li');
+                var a = document.createElement('a'); a.href = entry.url; a.textContent = entry.title || entry.url;
+                var p = document.createElement('p');
+                if (typeof entry.bodyIndex === 'number' && entry.bodyIndex >= 0 && entry.body) {
+                    var st = Math.max(0, entry.bodyIndex - 40);
+                    p.textContent = (st > 0 ? '\u2026 ' : '') + (entry.body || '').substr(st, 140).trim() + (st + 140 < (entry.body || '').length ? ' \u2026' : '');
+                } else { p.textContent = entry.description || entry.url || ''; }
+                li.appendChild(a); li.appendChild(p); ul.appendChild(li);
+            });
+            resultsContainer.appendChild(ul);
+        }
+
+        var debounceTimer = null;
+        overlayInput.addEventListener('input', function() {
+            var q = overlayInput.value || '';
+            clearTimeout(debounceTimer);
+            if (!q.trim()) { resultsContainer.innerHTML = ''; return; }
+            debounceTimer = setTimeout(function() { renderResults(filterEntries(q)); }, 120);
+        });
+        overlayInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); var ent = filterEntries(overlayInput.value || ''); if (ent.length) window.location.href = ent[0].url; }
+        });
+
+        loadSitemapUrls().then(function() { if (overlayInput.value.trim()) renderResults(filterEntries(overlayInput.value)); });
     }
 
     /* Robust site search suggestions (always available) */
     function ensureSiteSearchGlobal() {
+        if (window.__searchOverlay) return; // search is handled by the overlay
         const navSearch = document.querySelector('.nav-search');
         if (!navSearch) return;
         if (navSearch.dataset._siteSearchGlobal === '1') return;
@@ -930,34 +1014,11 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureLottieHamburger();
     ensureMobileGetInTouchInMenu();
     ensureHomeLikeFooterEverywhere();
-    // setup compact search toggle for very small screens
-    try { ensureMobileSearchToggle(); } catch (e) { /* ignore if not available */ }
+    // setup search overlay (icon trigger + full-screen search panel)
+    try { ensureSearchOverlay(); } catch (e) { console.warn('Search overlay init failed:', e); }
     // setup site-wide client-side search suggestions
     try { ensureSiteSearchGlobal(); } catch (e) { console.warn('Search init failed:', e); }
-    // Fallback: delegated handler in case the toggle's direct listener didn't attach
-    // This ensures the magnifier button reliably opens the compact search on published sites
-    document.addEventListener('click', function (ev) {
-        try {
-            var t = ev.target;
-            if (!t || typeof t.closest !== 'function') return;
-            var toggle = t.closest('.nav-search-toggle');
-            if (!toggle) return;
-            var navSearch = toggle.closest('.nav-search');
-            if (!navSearch) return;
-            // prevent the global click handler from immediately closing it
-            ev.stopPropagation();
-            if (navSearch.classList.contains('expanded')) return;
-            navSearch.classList.add('expanded');
-            var input = navSearch.querySelector('.search-input');
-            var closeBtn = navSearch.querySelector('.nav-search-close');
-            if (input) {
-                input.style.display = 'block';
-                try { input.focus(); } catch (e) {}
-            }
-            if (closeBtn) closeBtn.style.display = 'inline-flex';
-            toggle.style.display = 'none';
-        } catch (e) { /* silent fallback */ }
-    });
+    // (search overlay handles its own click/open logic — no fallback needed)
     
     if (hamburger && navlist) {
         const dropdownItems = navlist.querySelectorAll('.dropdown');

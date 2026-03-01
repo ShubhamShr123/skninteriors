@@ -252,7 +252,7 @@ header.beige-nav {
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     transition: transform 0.36s cubic-bezier(.2,.9,.2,1);
     transform: translateX(-100%); /* start hidden off-screen to the left */
-    z-index: 1200; /* above overlay */
+    z-index: 9000; /* above nav-top, overlay, and header */
 }
 
 .navlist.active {
@@ -298,7 +298,7 @@ header.beige-nav {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 950;
+    z-index: 900; /* below header/navlist stacking context so menu links stay clickable */
 }
 
 .overlay.active {
@@ -327,8 +327,8 @@ header.beige-nav {
 
 .hamburger lottie-player {
     display: block !important;
-    width: 36px !important;
-    height: 36px !important;
+    width: 24px !important;
+    height: 24px !important;
 }
 
 /* Mobile-only Get In Touch inside hamburger dropdown */
@@ -435,8 +435,9 @@ header.beige-nav {
         font-size: 20px;
     }
 
-    /* keep other right-side controls visually clear while search expanded */
-    .nav-top .right > *:not(.nav-search) {
+    /* keep other right-side controls visually clear while search expanded
+       (but never disable the search trigger itself) */
+    .nav-top .right > *:not(.search-trigger) {
         opacity: 0.6;
         pointer-events: none;
     }
@@ -559,17 +560,23 @@ header.beige-nav {
         max-width: min(46vw, 260px);
     }
 
-    /* Small rounded hamburger icon */
+    /* Slim rounded hamburger icon */
     .hamburger {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        border-radius: 10px;
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 50%;
         background: #ffffff;
         align-items: center;
         justify-content: center;
         padding: 0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        transition: box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .hamburger:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        background: #faf9f7;
     }
 
     /* hide the 3-span hamburger lines on mobile and use an icon */
@@ -595,7 +602,7 @@ header.beige-nav {
         opacity: 1;
         visibility: visible;
         transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms ease;
-        z-index: 1200; /* above overlay */
+        z-index: 9000; /* above nav-top, overlay, and header */
         box-shadow: 2px 0 20px rgba(0,0,0,0.12);
         background-color: #F5F2EF;
         pointer-events: none;
@@ -785,5 +792,276 @@ footer a:hover {
 
     .footer-map {
         flex: 1;
+    }
+}
+
+/* ================================================================
+   REDESIGNED SEARCH: ICON TRIGGER + FULL-SCREEN OVERLAY
+   ================================================================ */
+
+/* Hide original inline search form — replaced by trigger icon + overlay */
+.nav-top .right .nav-search,
+.nav-search {
+    display: none !important;
+}
+
+/* Search trigger icon */
+.search-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(51, 51, 51, 0.12);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    color: #333;
+    flex-shrink: 0;
+    /* Mobile touch improvements */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    z-index: 10;
+}
+
+.search-trigger:hover {
+    background: rgba(74, 124, 89, 0.08);
+    border-color: #4A7C59;
+    color: #4A7C59;
+    transform: scale(1.06);
+}
+
+.search-trigger:active {
+    transform: scale(0.95);
+    background: rgba(74, 124, 89, 0.12);
+}
+
+.search-trigger svg {
+    width: 17px;
+    height: 17px;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+/* --- Overlay backdrop --- */
+.search-overlay-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 2500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.search-overlay-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Overlay panel --- */
+.search-overlay-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2501;
+    background: #ffffff;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.search-overlay-backdrop.open .search-overlay-panel {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* --- Inner layout --- */
+.search-overlay-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 22px 24px 18px;
+}
+
+/* Animated magnifying-glass icon inside the overlay */
+.search-overlay-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: #4A7C59;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.35s ease 0.15s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+}
+
+.search-overlay-backdrop.open .search-overlay-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.search-overlay-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Input inside the overlay */
+.search-overlay-input {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    font-size: 18px;
+    font-family: inherit;
+    outline: none;
+    background: transparent;
+    color: #333;
+    letter-spacing: 0.2px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.3s ease 0.2s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.search-overlay-backdrop.open .search-overlay-input {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.search-overlay-input::placeholder {
+    color: #b0ada8;
+}
+
+/* Close button inside the overlay */
+.search-overlay-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #f5f2ef;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 18px;
+    padding: 0;
+    opacity: 0;
+    transform: rotate(-90deg);
+    transition: opacity 0.3s ease 0.25s,
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.25s,
+                background 0.2s ease,
+                color 0.2s ease;
+}
+
+.search-overlay-backdrop.open .search-overlay-close {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.search-overlay-close:hover {
+    background: #e9e5e1;
+    color: #333;
+}
+
+/* Separator */
+.search-overlay-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e0dcd7 20%, #e0dcd7 80%, transparent);
+    margin: 0;
+}
+
+/* Results inside overlay */
+.search-overlay-results {
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: 0;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.search-overlay-results:empty {
+    display: none;
+    padding: 0;
+}
+
+.search-overlay-results ul {
+    list-style: none;
+    margin: 0;
+    padding: 8px 16px 16px;
+    display: block !important;
+}
+
+.search-overlay-results li {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f5f2ef;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    display: block;
+    white-space: normal;
+}
+
+.search-overlay-results li:hover {
+    background: #f9f8f6;
+}
+
+.search-overlay-results li:last-child {
+    border-bottom: none;
+}
+
+.search-overlay-results a {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.search-overlay-results a:hover {
+    color: #4A7C59;
+}
+
+.search-overlay-results p {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Responsive fine-tuning */
+@media screen and (max-width: 541px) {
+    .search-overlay-inner {
+        padding: 16px 16px 14px;
+        gap: 10px;
+    }
+    .search-overlay-input {
+        font-size: 16px;
+    }
+    /* Keep 44px minimum touch target on mobile */
+    .search-trigger {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    .search-trigger svg {
+        width: 16px;
+        height: 16px;
     }
 }

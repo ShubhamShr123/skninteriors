@@ -1,0 +1,149 @@
+/* =========================================================
+   SPLASH SCREEN – DECK-TO-GRID CARD ANIMATION
+   Only used on the home page. ~9.8 s total.
+   ========================================================= */
+
+/* Lock scroll while splash is on-screen */
+html.splash-active,
+html.splash-active body {
+    overflow: hidden !important;
+    height: 100%;
+}
+
+/* ---------- backdrop ---------- */
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: radial-gradient(ellipse at 50% 38%, #1c1c1c 0%, #0d0d0d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Subtle film-grain texture */
+#splash-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ---------- brand / logo area ---------- */
+.splash-brand {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+    will-change: opacity, transform;
+}
+
+.splash-logo-img {
+    width: 76px;
+    height: 76px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.splash-tagline {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #D4AF37;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+/* ---------- cards ---------- */
+.splash-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 200px;
+    height: 124px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    will-change: left, top, transform, opacity, box-shadow;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 3;
+}
+
+.splash-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* ---------- heading (after grid) ---------- */
+.splash-heading {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%) translateY(24px);
+    z-index: 4;
+    opacity: 0;
+    font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(22px, 4vw, 48px);
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 3px;
+    color: #D4AF37;
+    text-align: center;
+    white-space: nowrap;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.6), 0 0 60px rgba(212,175,55,0.15);
+    will-change: opacity, transform;
+    pointer-events: none;
+}
+
+/* ---------- mobile (< 640px) ---------- */
+@media (max-width: 639px) {
+    .splash-logo-img {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+    }
+    .splash-tagline {
+        font-size: 11px;
+        letter-spacing: 3px;
+    }
+    .splash-heading {
+        font-size: clamp(16px, 5vw, 24px);
+        letter-spacing: 1.5px;
+        white-space: normal;
+        max-width: 90vw;
+        bottom: 3%;
+    }
+    .splash-card {
+        width: 150px;
+        height: 93px;
+    }
+}
+
+/* ---------- tablet (640–1023px) ---------- */
+@media (min-width: 640px) and (max-width: 1023px) {
+    .splash-heading {
+        font-size: clamp(20px, 3.5vw, 34px);
+        letter-spacing: 2px;
+    }
+    .splash-card {
+        width: 180px;
+        height: 112px;
+    }
+}

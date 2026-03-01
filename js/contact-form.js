@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         formData.append('page', window.location.href);
         formData.append('userAgent', navigator.userAgent || '');
-        formData.append('source', 'skninteriors-contact-page');
+        formData.append('source', 'shriraminteriors-contact-page');
 
         const payload = new URLSearchParams();
         for (const [key, value] of formData.entries()) {
