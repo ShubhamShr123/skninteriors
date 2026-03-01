@@ -79,6 +79,13 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* Ensure main content is pushed below the fixed header.
+   JS sets `--header-offset` to the current header height on load/resize. */
+main {
+    padding-top: var(--header-offset, 88px);
+    transition: padding-top 180ms ease;
+}
+
 .navbar {
     display: flex;
     /* Changed to flex-direction column for the two-row layout */
@@ -238,6 +245,8 @@ header.beige-nav {
     left: 0;
     width: 280px;
     height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
     background-color: #F5F2EF;
     padding-top: 60px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -572,34 +581,31 @@ header.beige-nav {
         line-height: 1;
     }
 
-    /* make the navlist drop down from top on narrow screens - modernized */
+    /* Slide-in menu from left on narrow screens */
     .navlist {
         position: fixed;
-        top: 80px; /* sits under the header */
+        top: 0;
         left: 0;
-        width: 100%;
-        max-height: 70vh; /* slightly taller to fit content */
+        width: 280px;
+        height: 100vh;
+        box-sizing: border-box;
         overflow-y: auto;
-        transform: translateY(-8%) scaleY(0.98);
-        transform-origin: top center;
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease, box-shadow 260ms ease;
+        overflow-x: hidden;
+        transform: translateX(-100%);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms ease;
         z-index: 1200; /* above overlay */
-        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-        background-color: rgba(245,242,239,0.98);
+        box-shadow: 2px 0 20px rgba(0,0,0,0.12);
+        background-color: #F5F2EF;
         pointer-events: none;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        backdrop-filter: blur(6px) saturate(1.05);
-        -webkit-backdrop-filter: blur(6px) saturate(1.05);
-        padding-bottom: 12px;
+        padding-top: 60px;
+        padding-bottom: 24px;
+        border-right: 1px solid rgba(0,0,0,0.04);
     }
 
     .navlist.active {
-        transform: translateY(0) scaleY(1);
-        opacity: 1;
-        visibility: visible;
+        transform: translateX(0);
         pointer-events: auto;
     }
 

@@ -249,16 +249,8 @@ function ensureTopRollingBarStyles() {
                         navlist.style.transform = '';
                     }
 
-                    if (!navlist.querySelector('.close-btn')) {
-                        const closeBtn = document.createElement('div');
-                        closeBtn.className = 'close-btn';
-                        closeBtn.innerHTML = '&times;';
-                        navlist.prepend(closeBtn);
-                        closeBtn.addEventListener('click', function(event) {
-                            event.stopPropagation();
-                            closeMenu();
-                        });
-                    }
+                    // rely on the hamburger control to open/close the menu; do not inject
+                    // an extra in-menu close button to avoid duplicate controls
                 }
 
                 function closeMenu() {
@@ -942,6 +934,30 @@ document.addEventListener('DOMContentLoaded', function() {
     try { ensureMobileSearchToggle(); } catch (e) { /* ignore if not available */ }
     // setup site-wide client-side search suggestions
     try { ensureSiteSearchGlobal(); } catch (e) { console.warn('Search init failed:', e); }
+    // Fallback: delegated handler in case the toggle's direct listener didn't attach
+    // This ensures the magnifier button reliably opens the compact search on published sites
+    document.addEventListener('click', function (ev) {
+        try {
+            var t = ev.target;
+            if (!t || typeof t.closest !== 'function') return;
+            var toggle = t.closest('.nav-search-toggle');
+            if (!toggle) return;
+            var navSearch = toggle.closest('.nav-search');
+            if (!navSearch) return;
+            // prevent the global click handler from immediately closing it
+            ev.stopPropagation();
+            if (navSearch.classList.contains('expanded')) return;
+            navSearch.classList.add('expanded');
+            var input = navSearch.querySelector('.search-input');
+            var closeBtn = navSearch.querySelector('.nav-search-close');
+            if (input) {
+                input.style.display = 'block';
+                try { input.focus(); } catch (e) {}
+            }
+            if (closeBtn) closeBtn.style.display = 'inline-flex';
+            toggle.style.display = 'none';
+        } catch (e) { /* silent fallback */ }
+    });
     
     if (hamburger && navlist) {
         const dropdownItems = navlist.querySelectorAll('.dropdown');
@@ -990,10 +1006,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             overlay.classList.toggle('active');
 
-            // Ensure navlist uses the fixed full-height positioning (clear any inline top/height)
+            // Ensure navlist uses CSS-controlled positioning (avoid forcing top/height)
             if (navlist.classList.contains('active')) {
-                navlist.style.top = '0';
-                navlist.style.height = '100vh';
+                navlist.style.top = '';
+                navlist.style.height = '';
                 // animate lottie to open (forward) if available
                 if (lottiePlayer && typeof lottiePlayer.setDirection === 'function') {
                     try {
@@ -1013,16 +1029,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // Add a close button to the sliding nav if not present
-            if (!navlist.querySelector('.close-btn')) {
-                const closeBtn = document.createElement('div');
-                closeBtn.className = 'close-btn';
-                closeBtn.innerHTML = '&times;';
-                navlist.prepend(closeBtn);
-                closeBtn.addEventListener('click', function() {
-                    closeMenu();
-                });
-            }
+            // do not add a duplicate in-menu close button; the hamburger controls closing
 
             if (!navlist.classList.contains('active')) {
                 closeAllDropdowns();
@@ -1366,6 +1373,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Keep CSS variable `--header-offset` in sync with the header height so
+// fixed header doesn't overlap page content on small screens.
+function updateHeaderOffsetVar() {
+    try {
+        var header = document.querySelector('header');
+        if (!header) return;
+        var h = header.offsetHeight || 88;
+        document.documentElement.style.setProperty('--header-offset', h + 'px');
+    } catch (e) { }
+}
+
+window.addEventListener('load', updateHeaderOffsetVar);
+window.addEventListener('resize', function() {
+    // debounce a bit
+    if (window.__headerOffsetResizeTimer) clearTimeout(window.__headerOffsetResizeTimer);
+    window.__headerOffsetResizeTimer = setTimeout(function() {
+        updateHeaderOffsetVar();
+    }, 120);
+});
+document.addEventListener('DOMContentLoaded', updateHeaderOffsetVar);
 
 document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('.stat-number[data-target]');
