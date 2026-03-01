@@ -38,9 +38,10 @@ body {
 
 .logo img {
     width: auto;
-    height: 44px;
+    height: 64px; /* Increased logo height */
     max-width: none;
     display: block;
+    border-radius: 12px; /* Added rounded edges */
 }
 
 .brand-name {
@@ -65,7 +66,8 @@ body {
 header {
     width: 100%;
     max-width: 100vw;
-    height: 55px;
+    /* Adjusted height to auto to accommodate two rows */
+    height: auto;
     background-color: #F5F2EF;
     position: fixed;
     top: 0;
@@ -74,11 +76,13 @@ header {
     z-index: 1000;
     overflow-x: hidden;
     box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    /* Changed to flex-direction column for the two-row layout */
+    flex-direction: column;
     align-items: center;
     background: #F5F2EF;
     max-width: 100vw;
@@ -107,11 +111,9 @@ header.beige-nav {
     box-sizing: border-box;
 }
 
-.navbar ul {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 16px;
+/* Hide non-slide nav uls by default (keep `.navlist` visible when active) */
+.navbar > ul:not(.navlist) {
+    display: none;
 }
 
 .navbar ul li {
@@ -147,6 +149,7 @@ header.beige-nav {
     text-decoration: none !important;
     font-weight: 500;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button from wrapping */
 }
 
 .get-in-touch:hover {
@@ -156,43 +159,481 @@ header.beige-nav {
 }
 
 .hamburger {
-    display: none;
+    display: flex; /* Always display hamburger */
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
-    margin-right: 20px;
+    margin-right: 0; /* Remove margin */
+    padding: 10px; /* Add some padding to make it easier to click */
 }
 
-.hamburger span {
+.hamburger .line {
     width: 25px;
     height: 3px;
-    background-color: #333333;
-    border-radius: 2px;
+    background-color: #333;
     transition: all 0.3s ease;
 }
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
+/* Support existing markup that uses plain spans */
+.hamburger span {
+    display: none; /* hide old spans when using animated icon */
 }
 
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
+/* Lottie hamburger sizing */
+.hamburger lottie-player {
+    display: block;
+    width: 36px;
+    height: 36px;
 }
 
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
+/* Top row containing hamburger, centered logo, right actions */
 
-.rightnav {
-    width: auto;
+.nav-top {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 8px;
-    margin-left: auto;
-    padding-right: 20px;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 20px;
+    height: 80px;
 }
 
+/* Layout: hamburger + logo on the left, actions + search on the right */
+.nav-top .left,
+.nav-top .center,
+.nav-top .right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-top .left { justify-content: flex-start; gap:10px; flex: 0 0 auto; }
+/* Keep the logo immediately to the right of the hamburger by preventing
+    the center area from expanding; align its contents to the start. */
+.nav-top .center { justify-content: flex-start; margin-left: 8px; flex: 0 0 auto; }
+.nav-top .right { justify-content: flex-end; margin-left: auto; gap:12px; flex: 0 0 auto; }
+
+/* Make logo bigger */
+.logo { height: 80px; }
+
+/* Search row below the top */
+.nav-bottom { display: none; }
+.nav-search { width: auto; max-width: 45vw; }
+/* ensure positioned parent for absolute results */
+.nav-search { position: relative; }
+.nav-search input[type="search"] {
+    width: 260px;
+    max-width: 48vw;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Navlist (hidden by default, shown on hamburger click) */
+.navlist {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #F5F2EF;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: transform 0.36s cubic-bezier(.2,.9,.2,1);
+    transform: translateX(-100%); /* start hidden off-screen to the left */
+    z-index: 1200; /* above overlay */
+}
+
+.navlist.active {
+    transform: translateX(0); /* slide into view */
+}
+
+.navlist li {
+    list-style: none;
+    margin: 0;
+    width: 100%;
+}
+
+.navlist li a {
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    border-bottom: 1px solid #e0dcd7;
+}
+
+.navlist li a:hover {
+    background-color: #e9e5e1;
+    color: #4A7C59;
+}
+
+/* Close button for the slide-in menu */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Overlay for when the menu is active */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 950;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Remove old list display conflicts while keeping navlist functional */
+@media screen and (max-width: 1110px) {
+    .navbar > ul:not(.navlist) {
+        display: none;
+    }
+}
+
+/* Strong overrides to prevent legacy hamburger visuals from showing
+   (some pages/styles were re-enabling the 3-span icon). Keep Lottie only. */
+.hamburger span,
+.hamburger .line {
+    display: none !important;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: none !important;
+    display: none !important;
+}
+
+.hamburger lottie-player {
+    display: block !important;
+    width: 36px !important;
+    height: 36px !important;
+}
+
+/* Mobile-only Get In Touch inside hamburger dropdown */
+.mobile-menu-cta {
+    display: none;
+    margin-top: 8px;
+}
+
+.mobile-menu-cta a.get-in-touch {
+    display: block;
+    margin: 10px 16px 16px;
+    text-align: center;
+    border-radius: 14px !important;
+}
+
+@media screen and (max-width: 1110px) {
+    .mobile-menu-cta {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav-top {
+        padding: 6px 12px;
+    }
+    .logo img {
+        height: 50px;
+    }
+    .get-in-touch {
+        padding: 6px 12px !important;
+        font-size: 14px;
+    }
+    .nav-search {
+        width: 90%;
+    }
+}
+
+/* Compact search toggle for very small screens */
+@media screen and (max-width: 541px) {
+    .nav-top .right .nav-search {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: auto;
+    }
+
+    /* hide the full input by default, show a small toggle button */
+    .nav-search .search-input,
+    .nav-search .nav-search-close {
+        display: none;
+    }
+
+    .nav-search .nav-search-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    /* When expanded, show a narrower, centered input (not full-width) */
+    .nav-search.expanded {
+        position: absolute;
+        left: 50%;
+        right: auto;
+        top: 8px;
+        z-index: 1400;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        transform: translateX(-50%);
+        width: auto;
+        padding: 0 8px;
+    }
+
+    .nav-search.expanded .search-input {
+        display: block;
+        width: min(360px, 86vw); /* limit to a comfortable width on phones */
+        padding: 10px 16px;
+        border-radius: 24px;
+        border: 1px solid #ccc;
+        background: #fff;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .nav-search.expanded .nav-search-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    /* keep other right-side controls visually clear while search expanded */
+    .nav-top .right > *:not(.nav-search) {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+}
+
+/* Search results dropdown (used for client-side site search) */
+.nav-search-results {
+    /* take the results out of header flow to avoid causing header scrollbars */
+    position: fixed;
+    top: 72px; /* distance from viewport top - tweak if needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(720px, 94vw);
+    max-height: 60vh;
+    overflow: auto;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-radius: 8px;
+    z-index: 1500;
+    padding: 8px;
+}
+
+.nav-search-results-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block; /* force vertical stacking */
+}
+
+.nav-search-results-list li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0efed;
+    display: block;
+    white-space: normal;
+}
+
+/* Stronger selector to override legacy `.navbar ul { display:flex }` which
+   can accidentally make the results render horizontally when the results
+   are appended inside the header `.navbar`. Use a more specific rule so
+   the results always render as a vertical list. */
+.navbar .nav-search-results-list,
+.nav-search-results .nav-search-results-list {
+    display: block !important;
+    flex-direction: column !important;
+}
+
+.nav-search-results-list li:last-child { border-bottom: none; }
+
+.nav-search-result-link {
+    display: block;
+    font-weight: 600;
+    color: #2b2b2b;
+    text-decoration: none;
+    margin-bottom: 4px;
+}
+
+.nav-search-result-link:hover { color: #4A7C59; }
+
+.nav-search-result-snippet {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+@media screen and (max-width: 1110px) {
+    .nav-search-results {
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(560px, 94vw);
+        top: 88px;
+    }
+}
+
+@media screen and (max-width: 541px) {
+    .nav-search-results {
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(360px, 92vw);
+        top: 96px;
+        max-height: 50vh;
+    }
+}
+
+/* Specific mobile/tablet behavior under 1110px: hide CTA from top, show only search; make hamburger a round icon and menu drops down */
+@media screen and (max-width: 1110px) {
+    .navbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+    }
+
+    .nav-top {
+        position: relative;
+        z-index: 1300;
+        width: 100%;
+    }
+
+    /* top CTA hidden, moved into menu */
+    .nav-top .right .get-in-touch {
+        display: none;
+    }
+
+    /* make search take remaining space on the right */
+    .nav-top .right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        flex: 0 0 auto;
+    }
+
+    .nav-search {
+        width: auto;
+        max-width: min(46vw, 280px);
+    }
+
+    .nav-search input[type="search"] {
+        width: min(46vw, 260px);
+        max-width: min(46vw, 260px);
+    }
+
+    /* Small rounded hamburger icon */
+    .hamburger {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 10px;
+        background: #ffffff;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* hide the 3-span hamburger lines on mobile and use an icon */
+    .hamburger span { display: none; }
+    .hamburger::before {
+        content: '\2630';
+        font-size: 20px;
+        color: #333;
+        line-height: 1;
+    }
+
+    /* make the navlist drop down from top on narrow screens - modernized */
+    .navlist {
+        position: fixed;
+        top: 80px; /* sits under the header */
+        left: 0;
+        width: 100%;
+        max-height: 70vh; /* slightly taller to fit content */
+        overflow-y: auto;
+        transform: translateY(-8%) scaleY(0.98);
+        transform-origin: top center;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease, box-shadow 260ms ease;
+        z-index: 1200; /* above overlay */
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        background-color: rgba(245,242,239,0.98);
+        pointer-events: none;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        backdrop-filter: blur(6px) saturate(1.05);
+        -webkit-backdrop-filter: blur(6px) saturate(1.05);
+        padding-bottom: 12px;
+    }
+
+    .navlist.active {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* larger tap targets inside menu */
+    .navlist li a {
+        padding: 18px 24px;
+        font-size: 18px;
+        display: block;
+    }
+
+    /* Smooth staggered reveal for list items */
+    .navlist li {
+        opacity: 0;
+        transform: translateY(-6px);
+        transition: transform 300ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease;
+    }
+
+    /* When menu active, reveal items with a small stagger */
+    .navlist.active li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* apply incremental delays for a subtle cascading effect */
+    .navlist.active li:nth-child(1) { transition-delay: 0ms; }
+    .navlist.active li:nth-child(2) { transition-delay: 30ms; }
+    .navlist.active li:nth-child(3) { transition-delay: 60ms; }
+    .navlist.active li:nth-child(4) { transition-delay: 90ms; }
+    .navlist.active li:nth-child(5) { transition-delay: 120ms; }
+    .navlist.active li:nth-child(6) { transition-delay: 150ms; }
+    .navlist.active li:nth-child(7) { transition-delay: 180ms; }
+}
+
+/* Home-style footer visuals shared across all pages */
 .footer-info {
     background-color: #e0e0e0;
     padding: 60px 6vw;
@@ -224,12 +665,6 @@ header.beige-nav {
     font-weight: 600;
 }
 
-.footer-column p {
-    margin-bottom: 12px;
-    line-height: 1.6;
-    color: #333333;
-}
-
 .footer-contact-stack {
     display: flex;
     flex-direction: column;
@@ -244,18 +679,6 @@ header.beige-nav {
     border-radius: 14px;
     padding: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.footer-contact-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(74, 124, 89, 0.18);
-}
-
-.footer-contact-card:hover .footer-contact-icon {
-    transform: scale(1.08);
-    background: linear-gradient(135deg, #F6E7B3 0%, #E8CD7A 100%);
-    color: #333333;
 }
 
 .footer-contact-icon {
@@ -270,7 +693,6 @@ header.beige-nav {
     color: #ffffff;
     font-size: 15px;
     line-height: 1;
-    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
 .footer-contact-body {
@@ -280,17 +702,15 @@ header.beige-nav {
     min-width: 0;
 }
 
-.footer-contact-body a {
+.footer-contact-body a,
+.footer-column ul li a {
     color: #333333;
     text-decoration: none;
-    line-height: 1.5;
-    word-break: break-word;
-    transition: color 0.2s ease;
 }
 
-.footer-contact-body a:hover {
+.footer-contact-body a:hover,
+.footer-column ul li a:hover {
     color: #4A7C59;
-    text-decoration: underline;
 }
 
 .footer-column ul {
@@ -300,16 +720,6 @@ header.beige-nav {
 
 .footer-column ul li {
     margin-bottom: 10px;
-}
-
-.footer-column ul li a {
-    color: #333333;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-column ul li a:hover {
-    color: #4A7C59;
 }
 
 .footer-map {
@@ -325,132 +735,35 @@ header.beige-nav {
 }
 
 footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #e0e0e0;
+    min-height: 8vh;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 20px 10px;
+    color: #333333;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
-@media only screen and (max-width:1110px) {
-    .navlist {
-        position: fixed;
-        left: 0;
-        top: 55px;
-        height: calc(100vh - 55px);
-        width: 100vw;
-        background-color: #ffffff;
-        flex-direction: column;
-        padding-top: 20px;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        z-index: 999;
-        overflow-x: hidden;
-    }
-
-    .navlist.active {
-        transform: translateX(0);
-    }
-
-    .navlist li {
-        margin: 15px 0;
-        text-align: center;
-    }
-
-    .navbar {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .logo-link {
-        gap: 8px;
-        padding-left: 10px;
-        max-width: calc(100% - 52px);
-    }
-
-    .logo img {
-        height: 40px;
-    }
-
-    .brand-name {
-        font-size: clamp(10px, 2.2vw, 14px);
-        max-width: none;
-        overflow: visible;
-        text-overflow: clip;
-    }
-
-    .navbar ul li {
-        margin-right: 0;
-    }
-
-    .navlist .dropdown {
-        width: 100%;
-    }
-
-    .navlist .dropdown-content {
-        position: static;
-        min-width: 100%;
-        padding: 0;
-        background-color: transparent;
-        max-height: 0;
-        opacity: 0;
-        transform: translateY(-6px);
-        overflow: hidden;
-        pointer-events: none;
-    }
-
-    .navlist .dropdown.open .dropdown-content {
-        max-height: 140px;
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-    }
-
-    .navlist .dropdown-content li a {
-        padding: 6px 14px;
-    }
-
-    .navlist li a.get-in-touch {
-        background-color: #4A7C59 !important;
-        color: #ffffff !important;
-        padding: 8px 16px !important;
-        border-radius: 20px !important;
-        margin: 15px auto;
-        display: inline-block;
-    }
-
-    .navlist li a.get-in-touch:hover {
-        background-color: #3a6048 !important;
-        box-shadow: 0 4px 8px rgba(74, 124, 89, 0.3) !important;
-        color: #ffffff !important;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .navbar {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .navbar ul li {
-        margin-right: 0;
-    }
-
-    .rightnav {
-        display: none;
-    }
-
-    .footer-content {
-        gap: 30px;
-    }
-
-    .footer-column {
-        min-width: 45%;
-    }
+footer a {
+    text-decoration: none;
+    color: #4A7C59;
+    transition: color 0.3s ease;
 }
 
-@media only screen and (max-width: 480px) {
+footer a:hover {
+    color: #D4AF37;
+}
+
+@media only screen and (max-width: 768px) {
     .footer-info {
         padding: 40px 5vw;
     }
